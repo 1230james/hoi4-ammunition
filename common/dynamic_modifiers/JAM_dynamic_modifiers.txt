@@ -1,0 +1,15 @@
+JAM_ammo_shortage_modifier = {
+    # iconless to keep hidden
+    
+    enable = {
+        always = yes
+    }
+    
+    # country_resource_cost_steel    = CFR_steel_usage
+    # country_resource_cost_chromium = CFR_chromium_usage
+    
+    army_attack_factor  = JAM_ammunition_penalty
+	army_defence_factor	= JAM_ammunition_penalty
+
+	ai_focus_aggressive_factor = JAM_ammunition_penalty
+}

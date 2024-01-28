@@ -1,0 +1,406 @@
+on_actions = {
+
+	on_startup = {
+		effect = {
+			
+		}
+	}
+
+	on_daily = {
+		effect = {
+
+
+			#### daily consumption
+
+			set_variable = { ammunition_consumption = 0 }
+
+			set_variable = { mechanized_consumption = num_battalions_with_type@mechanized }
+			multiply_variable = { mechanized_consumption = 0.02 }
+			
+			set_variable = { artillery_consumption = num_battalions_with_type@artillery }
+			multiply_variable = { artillery_consumption = 0.04 }
+			
+			set_variable = { light_consumption = num_battalions_with_type@light_armor }
+			multiply_variable = { light_consumption = 0.03 }
+			
+			set_variable = { medium_consumption = num_battalions_with_type@medium_armor }
+			multiply_variable = { medium_consumption = 0.04 }
+			
+			set_variable = { heavy_consumption = num_battalions_with_type@heavy_armor }
+			multiply_variable = { heavy_consumption = 0.05 }
+			
+			set_variable = { super_heavy_consumption = num_battalions_with_type@super_heavy_armor }
+			multiply_variable = { super_heavy_consumption = 0.06 }
+			
+			set_variable = { modern_armor_consumption = num_battalions_with_type@modern_armor }
+			multiply_variable = { modern_armor_consumption = 0.05 }
+			
+			set_variable = { super_heavy_sp_artillery_brigade_consumption = num_battalions_with_type@super_heavy_sp_artillery_brigade }
+			multiply_variable = { super_heavy_sp_artillery_brigade_consumption = 0.08 }
+			
+			set_variable = { modern_sp_artillery_brigade_consumption = num_battalions_with_type@modern_sp_artillery_brigade }
+			multiply_variable = { modern_sp_artillery_brigade_consumption = 0.05 }
+			
+			set_variable = { heavy_sp_artillery_brigade_consumption = num_battalions_with_type@heavy_sp_artillery_brigade }
+			multiply_variable = { heavy_sp_artillery_brigade_consumption = 0.05 }
+			
+			set_variable = { medium_sp_artillery_brigade_consumption = num_battalions_with_type@medium_sp_artillery_brigade }
+			multiply_variable = { medium_sp_artillery_brigade_consumption = 0.06 }
+			
+			set_variable = { light_sp_artillery_brigade_consumption = num_battalions_with_type@light_sp_artillery_brigade }
+			multiply_variable = { light_sp_artillery_brigade_consumption = 0.05 }
+			
+			set_variable = { light_tank_destroyer_brigade_consumption = num_battalions_with_type@light_tank_destroyer_brigade }
+			multiply_variable = { light_tank_destroyer_brigade_consumption = 0.03 }
+			
+			set_variable = { medium_tank_destroyer_brigade_consumption = num_battalions_with_type@medium_tank_destroyer_brigade }
+			multiply_variable = { medium_tank_destroyer_brigade_consumption = 0.04 }
+			
+			set_variable = { heavy_tank_destroyer_brigade_consumption = num_battalions_with_type@heavy_tank_destroyer_brigade }
+			multiply_variable = { heavy_tank_destroyer_brigade_consumption = 0.05 }
+			
+			set_variable = { modern_tank_destroyer_brigade_consumption = num_battalions_with_type@modern_tank_destroyer_brigade }
+			multiply_variable = { modern_tank_destroyer_brigade_consumption = 0.05 }
+			
+			set_variable = { super_heavy_tank_destroyer_brigade_consumption = num_battalions_with_type@super_heavy_tank_destroyer_brigade }
+			multiply_variable = { super_heavy_tank_destroyer_brigade_consumption = 0.06 }
+			
+			set_variable = { light_sp_anti_air_brigade_consumption = num_battalions_with_type@light_sp_anti_air_brigade }
+			multiply_variable = { light_sp_anti_air_brigade_consumption = 0.03 }
+			
+			set_variable = { medium_sp_anti_air_brigade_consumption = num_battalions_with_type@medium_sp_anti_air_brigade }
+			multiply_variable = { medium_sp_anti_air_brigade_consumption = 0.04 }
+			
+			set_variable = { heavy_sp_anti_air_brigade_consumption = num_battalions_with_type@heavy_sp_anti_air_brigade }
+			multiply_variable = { heavy_sp_anti_air_brigade_consumption = 0.05 }
+			
+			set_variable = { super_heavy_sp_anti_air_brigade_consumption = num_battalions_with_type@super_heavy_sp_anti_air_brigade }
+			multiply_variable = { super_heavy_sp_anti_air_brigade_consumption = 0.06 }
+			
+			set_variable = { modern_sp_anti_air_brigade_consumption = num_battalions_with_type@modern_sp_anti_air_brigade }
+			multiply_variable = { modern_sp_anti_air_brigade_consumption = 0.05 }
+			
+			set_variable = { railway_gun_consumption = num_battalions_with_type@railway_gun }
+			multiply_variable = { railway_gun_consumption = 0.1 }
+			
+			set_variable = { light_flame_tank_consumption = num_battalions_with_type@light_flame_tank }
+			multiply_variable = { light_flame_tank_consumption = 0.03 }
+			
+			set_variable = { medium_flame_tank_consumption = num_battalions_with_type@medium_flame_tank }
+			multiply_variable = { medium_flame_tank_consumption = 0.04 }
+			
+			set_variable = { heavy_flame_tankconsumption = num_battalions_with_type@heavy_flame_tank }
+			multiply_variable = { heavy_flame_tankconsumption = 0.05 }
+			
+			set_variable = { amphibious_mechanized_consumption = num_battalions_with_type@amphibious_mechanized }
+			multiply_variable = { amphibious_mechanized_consumption = 0.02 }
+			
+			set_variable = { amphibious_armor_consumption = num_battalions_with_type@amphibious_armor }
+			multiply_variable = { amphibious_armor_consumption = 0.03 }
+			
+			set_variable = { amphibious_light_armor_consumption = num_battalions_with_type@amphibious_light_armor }
+			multiply_variable = { amphibious_light_armor_consumption = 0.03 }
+			
+			set_variable = { amphibious_medium_armor_consumption = num_battalions_with_type@amphibious_medium_armor }
+			multiply_variable = { amphibious_medium_armor_consumption = 0.04 }
+			
+			set_variable = { amphibious_heavy_armor_consumption = num_battalions_with_type@amphibious_heavy_armor }
+			multiply_variable = { amphibious_heavy_armor_consumption = 0.05 }
+			
+			set_variable = { artillery_brigade_consumption = num_battalions_with_type@artillery_brigade }
+			multiply_variable = { artillery_brigade_consumption = 0.06 }
+			
+			set_variable = { mot_artillery_brigade_consumption = num_battalions_with_type@mot_artillery_brigade }
+			multiply_variable = { mot_artillery_brigade_consumption = 0.05 }
+			
+			set_variable = { rocket_artillery_brigade_consumption = num_battalions_with_type@rocket_artillery_brigade }
+			multiply_variable = { rocket_artillery_brigade_consumption = 0.07 }
+			
+			set_variable = { mot_rocket_artillery_brigade_consumption = num_battalions_with_type@mot_rocket_artillery_brigade }
+			multiply_variable = { mot_rocket_artillery_brigade_consumption = 0.07 }
+			
+			set_variable = { motorized_rocket_brigade_consumption = num_battalions_with_type@motorized_rocket_brigade }
+			multiply_variable = { motorized_rocket_brigade_consumption = 0.07 }
+			
+			
+			
+			
+			set_variable = { remaining_consumption = num_battalions }
+			
+			
+			
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@mechanized }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@artillery }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@light_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@medium_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@heavy_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@super_heavy_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@modern_armor }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@light_sp_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@medium_sp_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@heavy_sp_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@modern_sp_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@super_heavy_sp_artillery_brigade }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@light_tank_destroyer_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@medium_tank_destroyer_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@heavy_tank_destroyer_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@modern_tank_destroyer_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@super_heavy_tank_destroyer_brigade }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@light_sp_anti_air_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@medium_sp_anti_air_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@heavy_sp_anti_air_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@modern_sp_anti_air_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@super_heavy_sp_anti_air_brigade }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@railway_gun }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@light_flame_tank }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@medium_flame_tank }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@heavy_flame_tank }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@amphibious_mechanized }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@amphibious_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@amphibious_light_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@amphibious_medium_armor }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@amphibious_heavy_armor }
+			
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@mot_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@rocket_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@mot_rocket_artillery_brigade }
+			subtract_from_variable = { remaining_consumption = num_battalions_with_type@motorized_rocket_brigade }
+			
+			
+			
+			
+			
+			multiply_variable = { remaining_consumption = 0.01 }
+
+			set_variable = { potential_consumption = 0 }
+			
+			
+			
+			add_to_variable = { potential_consumption = mechanized_consumption }
+			add_to_variable = { potential_consumption = artillery_consumption }
+			add_to_variable = { potential_consumption = light_consumption }
+			add_to_variable = { potential_consumption = medium_consumption }
+			add_to_variable = { potential_consumption = heavy_consumption }
+			add_to_variable = { potential_consumption = super_heavy_consumption }
+			add_to_variable = { potential_consumption = modern_armor_consumption }
+			
+			add_to_variable = { potential_consumption = light_sp_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = medium_sp_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = heavy_sp_artillery_brigade }
+			add_to_variable = { potential_consumption = modern_sp_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = super_heavy_sp_artillery_brigade_consumption }
+			
+			add_to_variable = { potential_consumption = light_tank_destroyer_brigade_consumption }
+			add_to_variable = { potential_consumption = medium_tank_destroyer_brigade_consumption }
+			add_to_variable = { potential_consumption = heavy_tank_destroyer_brigade_consumption }
+			add_to_variable = { potential_consumption = modern_tank_destroyer_brigade }
+			add_to_variable = { potential_consumption = super_heavy_tank_destroyer_brigade_consumption }
+			
+			add_to_variable = { potential_consumption = light_sp_anti_air_brigade_consumption }
+			add_to_variable = { potential_consumption = medium_sp_anti_air_brigade_consumption }
+			add_to_variable = { potential_consumption = heavy_sp_anti_air_brigade_consumption }
+			add_to_variable = { potential_consumption = modern_sp_anti_air_brigade_consumption }
+			add_to_variable = { potential_consumption = super_heavy_sp_anti_air_brigade_consumption }
+			
+			add_to_variable = { potential_consumption = railway_gun_consumption }
+			
+			add_to_variable = { potential_consumption = light_flame_tank_consumption }
+			add_to_variable = { potential_consumption = medium_flame_tank_consumption }
+			add_to_variable = { potential_consumption = heavy_flame_tankconsumption }
+			
+			add_to_variable = { potential_consumption = amphibious_mechanized_consumption }
+			add_to_variable = { potential_consumption = amphibious_armor_consumption }
+			add_to_variable = { potential_consumption = amphibious_light_armor_consumption }
+			add_to_variable = { potential_consumption = amphibious_medium_armor_consumption }
+			add_to_variable = { potential_consumption = amphibious_heavy_armor_consumption }
+			
+			add_to_variable = { potential_consumption = artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = mot_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = rocket_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = mot_rocket_artillery_brigade_consumption }
+			add_to_variable = { potential_consumption = motorized_rocket_brigade_consumption }
+			
+			
+			
+			add_to_variable = { potential_consumption = remaining_consumption }
+			set_variable = { potential_consumption_max = potential_consumption }
+			multiply_variable = { potential_consumption_max = 2 }
+			divide_variable = { potential_consumption = num_divisions }
+
+			set_variable = { commanded_divisions = 0 }
+			set_variable = { divisions_in_offensive_combat = 0 }
+			set_variable = { divisions_in_defensive_combat = 0 }
+			every_army_leader = {
+				limit = {
+					is_leading_army_group = no
+				}
+				add_to_variable = { ROOT.commanded_divisions = num_units }
+				add_to_variable = { ROOT.divisions_in_offensive_combat = num_units_offensive_combats }
+				add_to_variable = { ROOT.divisions_in_defensive_combat = num_units_defensive_combats }
+			}
+
+
+			#### leaderless consumption
+			set_variable = { divisions_without_leadership = num_divisions }
+			subtract_from_variable = { divisions_without_leadership = commanded_divisions }
+			multiply_variable = { divisions_without_leadership = potential_consumption }
+			multiply_variable = { divisions_without_leadership = 0 }
+
+			#### offensive units consumption
+			multiply_variable = { divisions_in_offensive_combat = potential_consumption }
+			multiply_variable = { divisions_in_offensive_combat = 2 }
+
+			#### offensive units consumption
+			multiply_variable = { divisions_in_defensive_combat = potential_consumption }
+			multiply_variable = { divisions_in_defensive_combat = 1 }
+
+			set_variable = { daily_ammo_need = divisions_without_leadership }
+			add_to_variable = { daily_ammo_need = divisions_in_offensive_combat }
+			add_to_variable = { daily_ammo_need = divisions_in_defensive_combat }
+			clamp_variable = { 
+				var = daily_ammo_need 
+				min = 0
+			}
+
+
+			subtract_from_variable = { ammunition_variable = daily_ammo_need }
+
+
+			################## end daily consumption
+
+
+
+
+			#### daily addition
+
+			set_variable = { ammunition_daily = 0 }
+
+			# base gain
+			set_variable = { modifier_gain = modifier@daily_ammunition_gain }
+			divide_variable = { modifier_gain = 1000 }
+			add_to_variable = { ammunition_daily = modifier_gain }
+
+			# factor
+			set_variable = { ammunition_factor_calc = 1 }
+			add_to_variable = { ammunition_factor_calc = modifier@ammunition_factor }
+			clamp_variable = { 
+				var = ammunition_factor_calc 
+				min = 0 
+				#max = 0
+			}
+
+			multiply_variable = { ammunition_daily = ammunition_factor_calc }
+
+
+			add_to_variable = { ammunition_variable = ammunition_daily }
+
+			################## end daily addition
+
+
+
+			set_variable = { ammunition_balance = ammunition_daily }
+			subtract_from_variable = { ammunition_balance = daily_ammo_need }
+			set_variable = { ammunition_balance_int = ammunition_balance }
+			if = {
+				limit = {
+					check_variable = { ammunition_balance < 0 }
+				}
+				multiply_variable = { ammunition_balance_int = -1 }
+			}
+
+
+
+			set_variable = { ammunition_max = 0 }
+			add_to_variable = { ammunition_max = owned_controlled_states }
+			multiply_variable = { ammunition_max = 10 }
+			set_variable = { ammunition_storage = modifier@ammunition_capacity_k }
+			add_to_variable = { ammunition_max = ammunition_storage }
+
+			clamp_variable = { 
+				var = ammunition_variable 
+				min = 0 
+				max = ammunition_max
+			}
+
+
+
+
+			set_variable = { ammunition_penalty = daily_ammo_need }
+			subtract_from_variable = { ammunition_penalty = ammunition_daily }
+			divide_variable = { ammunition_penalty = daily_ammo_need }
+			multiply_variable = { ammunition_penalty = -1 }
+			if = {
+				limit = {
+					check_variable = { ammunition_balance < 0 }
+					check_variable = { ammunition_variable < ammunition_balance_int }
+					NOT = {
+						has_dynamic_modifier = { modifier = ammunition_effects }
+					}
+				}
+				add_dynamic_modifier = { modifier = ammunition_effects }
+			}
+
+
+			##### interface
+
+			set_variable = { ammo_h = ammunition_variable }
+			multiply_variable = { ammo_h = 1000 }
+
+			set_variable = { ammo_daily_h = ammunition_daily }
+			multiply_variable = { ammo_daily_h = 1000 }
+
+			set_variable = { ammo_need_h = daily_ammo_need }
+			multiply_variable = { ammo_need_h = 1000 }
+
+			set_variable = { potential_need_h = potential_consumption_max }
+			multiply_variable = { potential_need_h = 1000 }
+
+			set_variable = { ammunition_max_h = ammunition_max }
+			multiply_variable = { ammunition_max_h = 1000 }
+
+			set_variable = { potential_consumption_h = potential_consumption_max }
+			multiply_variable = { potential_consumption_h = 1000 }
+
+			set_variable = { ammo_ratio_var = ammunition_variable }
+			divide_variable = { ammo_ratio_var = ammunition_max }
+			multiply_variable = { ammo_ratio_var = 100 }
+
+			set_variable = { ammo_days_to_full = ammunition_max }
+			subtract_from_variable = { ammo_days_to_full = ammunition_variable }
+			divide_variable = { ammo_days_to_full = ammunition_balance }
+
+			set_variable = { ammo_days_to_empty = ammunition_variable }
+			divide_variable = { ammo_days_to_empty = ammunition_balance }
+			multiply_variable = { ammo_days_to_empty = -1 }
+
+			if = {
+				limit = {
+					check_variable = { ammunition_balance > 0 }
+				}
+				set_variable = { ammo_frame_var = 2 }
+			}
+			if = {
+				limit = {
+					check_variable = { ammunition_variable = ammunition_max }
+				}
+				set_variable = { ammo_frame_var = 1 }
+			}
+			if = {
+				limit = {
+					check_variable = { ammunition_balance < 0 }
+				}
+				set_variable = { ammo_frame_var = 3 }
+			}
+
+		}
+	}
+
+}

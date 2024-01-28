@@ -1,0 +1,13 @@
+on_actions = {
+    on_startup = {
+        effect = {
+            # TODO: Starting ammunition
+        }
+    }
+
+    on_daily = {
+        effect = {
+            
+        }
+    }
+}
