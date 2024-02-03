@@ -1,6 +1,9 @@
 # Ugly code warning :(
 
 # Constants
+@JAM_busy_mil_ammo = 0.45 # Base amount of thousands of ammo created daily from military factories assigned to production
+@JAM_idle_mil_ammo = 0.90 # Thousands of ammo created daily from mils idling/not assigned to a production line
+
 # All ammo usage quantities are in thousands per day
 @JAM_fallback_ammo = 0.02
 
@@ -1040,40 +1043,96 @@ JAM_se_calculate_air_ammo_demand = {
     }
 }
 
+# Determine current ammo supply
+# Outputs the following values to the listed variables:
+#   JAM_ammo_produced: Total qty. of ammo created, in thousands
+JAM_se_calculate_ammo_produced = {
+    # Set up base values
+    set_temp_variable = {
+        var   = busy_mils
+        value = num_of_military_factories
+    }
+    set_temp_variable = {
+        var   = idle_mils
+        value = num_of_available_military_factories
+    }
+    subtract_from_temp_variable = {
+        busy_mils = idle_mils
+    }
+    
+    # Remove damaged mils
+    set_temp_variable = {
+        damaged_mils = 0
+    }
+    every_controlled_state = {
+        limit = {
+            arms_factory > 0
+        }
+        add_to_temp_variable = {
+            damaged_mils = damaged_building_level@arms_factory
+        }
+    }
+    subtract_from_temp_variable = {
+        idle_mils = damaged_mils
+    }
+    if = {
+        limit = {
+            check_variable = { idle_mils < 0 }
+        }
+        add_to_temp_variable = {
+            busy_mils = idle_mils
+        }
+    }
+    clamp_temp_variable = {
+        var = idle_mils
+        min = 0
+    }
+    clamp_temp_variable = {
+        var = busy_mils
+        min = 0
+    }
+    
+    # Get ammo production numbers
+    multiply_temp_variable = {
+        idle_mils = @JAM_idle_mil_ammo
+    }
+    multiply_temp_variable = {
+        busy_mils = @JAM_busy_mil_ammo
+    }
+    
+    # Factory output modifier (from tech, etc.)
+    set_temp_variable = {
+        output_mult = 1
+    }
+    add_to_temp_variable = {
+        output_mult = modifier@industrial_capacity_factory
+    }
+    multiply_temp_variable = {
+        idle_mils = output_mult
+    }
+    multiply_temp_variable = {
+        busy_mils = output_mult
+    }
+    
+    # Final output
+    set_variable = {
+        JAM_ammo_produced = idle_mils
+    }
+    add_to_variable = {
+        JAM_ammo_produced = busy_mils
+    }
+}
+
 # Debug
 JAM_se_debug = {
-    set_variable = {
-        var   = JAM_debug_var
-        value = 0
-    }
-    every_state = {
-        limit = {
-            naval_base > 0
-        }
-        save_event_target_as = state_target
-        ROOT = {
-            if = {
-                limit = {
-                    ships_in_state_ports = {
-                        size  > 0
-                        state = event_target:state_target
-                    }
-                }
-                set_temp_variable = { i = 0 }
-                while_loop_effect = {
-                    limit = {
-                        check_variable = { i < 100 }
-                        ships_in_state_ports = {
-                            size  > i
-                            state = event_target:state_target
-                        }
-                    }
-                    add_to_temp_variable = { i = 1 }
-                }
-                add_to_variable = {
-                    ROOT.JAM_debug_var = i
-                }
-            }
-        }
-    }
+    # set_variable = {
+        # var   = JAM_debug_var
+        # value = num_of_available_military_factories
+    # }
+}
+JAM_se_debug_run_all_maths = {
+    JAM_se_calculate_army_ammo_demand = yes
+    JAM_se_calculate_navy_ammo_demand = yes
+    JAM_se_calculate_air_ammo_demand = yes
+    JAM_se_calculate_ammo_produced = yes
 }
