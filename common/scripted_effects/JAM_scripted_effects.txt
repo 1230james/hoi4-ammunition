@@ -1,58 +1,77 @@
-# 
-
 # Handles adding & removing the dynamic modifiers as necessary
 JAM_se_handle_dyn_modifier = {
     if = {
         limit = {
-            OR = {
-                check_variable = { CFR_steel_usage    > 0 }
-                check_variable = { CFR_chromium_usage > 0 }
-            }
+            check_variable = { JAM_army_penalty < 0 }
             NOT = {
                 has_dynamic_modifier = {
-                    modifier = CFR_resource_modifier
+                    modifier = JAM_dyn_mod_army_ammo_shortage
                 }
             }
         }
         add_dynamic_modifier = {
-            modifier = CFR_resource_modifier
+            modifier = JAM_dyn_mod_army_ammo_shortage
         }
     }
     else_if = {
         limit = {
-            check_variable = { CFR_steel_usage    = 0 }
-            check_variable = { CFR_chromium_usage = 0 }
+            check_variable = { JAM_army_penalty = 0 }
             has_dynamic_modifier = {
-                modifier = CFR_resource_modifier
+                modifier = JAM_dyn_mod_army_ammo_shortage
             }
         }
         remove_dynamic_modifier = {
-            modifier = CFR_resource_modifier
+            modifier = JAM_dyn_mod_army_ammo_shortage
         }
     }
     
     if = {
         limit = {
-            check_variable = { CFR_factory_output_reduction < 0 }
+            check_variable = { JAM_navy_penalty < 0 }
             NOT = {
                 has_dynamic_modifier = {
-                    modifier = CFR_factory_output_modifier
+                    modifier = JAM_dyn_mod_navy_ammo_shortage
                 }
             }
         }
         add_dynamic_modifier = {
-            modifier = CFR_factory_output_modifier
+            modifier = JAM_dyn_mod_navy_ammo_shortage
         }
     }
     else_if = {
         limit = {
-            check_variable = { CFR_factory_output_reduction = 0 }
+            check_variable = { JAM_navy_penalty = 0 }
             has_dynamic_modifier = {
-                modifier = CFR_factory_output_modifier
+                modifier = JAM_dyn_mod_navy_ammo_shortage
             }
         }
         remove_dynamic_modifier = {
-            modifier = CFR_factory_output_modifier
+            modifier = JAM_dyn_mod_navy_ammo_shortage
+        }
+    }
+    
+    if = {
+        limit = {
+            check_variable = { JAM_air_penalty < 0 }
+            NOT = {
+                has_dynamic_modifier = {
+                    modifier = JAM_dyn_mod_air_ammo_shortage
+                }
+            }
+        }
+        add_dynamic_modifier = {
+            modifier = JAM_dyn_mod_air_ammo_shortage
+        }
+    }
+    else_if = {
+        limit = {
+            check_variable = { JAM_air_penalty = 0 }
+            has_dynamic_modifier = {
+                modifier = JAM_dyn_mod_air_ammo_shortage
+            }
+        }
+        remove_dynamic_modifier = {
+            modifier = JAM_dyn_mod_air_ammo_shortage
         }
     }
 }
