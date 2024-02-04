@@ -1,0 +1,17 @@
+# Build more mils if we can't cover all ammo needs
+JAM_build_more_mils = {
+    enable = {
+        has_variable   = JAM_ammo_net_change
+        check_variable = { JAM_ammo_net_change < 0 }
+    }
+    
+    abort = {
+        check_variable = { JAM_ammo_net_change > 0 }
+    }
+    
+    ai_strategy = {
+        type  = building_target
+        id    = arms_factory
+        value = 10000
+    }
+}

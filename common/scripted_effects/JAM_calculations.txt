@@ -1147,9 +1147,6 @@ JAM_se_calculate_ammo_capacity = {
         ammo_cap = 0
     }
     every_controlled_state = {
-        limit = {
-            infrastructure_level > 0
-        }
         set_temp_variable = {
             temp_cap = infrastructure_level
         }
@@ -1184,7 +1181,7 @@ JAM_se_calculate_ammo_capacity = {
 #   JAM_air_ammo_demand_max_M
 #   JAM_ammo_produced_M
 #   JAM_ammo_net_change:       Current net change in ammo quantity
-#   JAM_ammo_is_accumulating:  Boolean indicating if ammo is accumulating (net inflow) or not.
+#   JAM_ammo_is_accumulating:  Indicates if ammo is accumulating (net inflow) or not. 0 -> false, 1 -> true
 #   JAM_ammo_days_remaining:   Number of days until max ammo if accumulating or until no ammo left if not accumulating
 #   JAM_ammo_months_remaining: Same as above but in months
 #   JAM_ammo_years_remaining:  Same as above but in years
@@ -1247,7 +1244,7 @@ JAM_se_calculate_derivative_values = {
             check_variable = { ammo_net > 0 }
         }
         set_variable = {
-            JAM_ammo_is_accumulating = yes
+            JAM_ammo_is_accumulating = 1
         }
         
         set_temp_variable  = {
@@ -1282,7 +1279,7 @@ JAM_se_calculate_derivative_values = {
             check_variable = { ammo_net < 0 }
         }
         set_variable = {
-            JAM_ammo_is_accumulating = no
+            JAM_ammo_is_accumulating = 0
         }
         
         set_temp_variable  = {
@@ -1311,7 +1308,7 @@ JAM_se_calculate_derivative_values = {
     }
     else = {
         set_variable = {
-            JAM_ammo_is_accumulating = yes
+            JAM_ammo_is_accumulating = 1
         }
         set_variable = {
             JAM_ammo_days_remaining = 36500 # arbitrary high number lol
