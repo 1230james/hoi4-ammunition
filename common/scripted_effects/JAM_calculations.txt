@@ -4,6 +4,9 @@
 @JAM_busy_mil_ammo = 0.45 # Base amount of thousands of ammo created daily from military factories assigned to production
 @JAM_idle_mil_ammo = 0.90 # Thousands of ammo created daily from mils idling/not assigned to a production line
 
+@JAM_base_ammo_capacity = 250 # Base ammo capacity, in thousands
+@JAM_ammo_cap_per_infra =  75 # Additional ammo capacity per level of infrastructure in controlled states, in thousands
+
 # All ammo usage quantities are in thousands per day
 @JAM_fallback_ammo = 0.02
 
@@ -141,6 +144,9 @@
 # Outputs the following values to the listed variables:
 #   JAM_army_ammo_demand_now: Total qty. of ammo demanded right now, in thousands
 #   JAM_army_ammo_demand_max: Total qty. of ammo demanded if at maximum demand, in thousands
+#   JAM_army_ammo_demand_leaderless: Current ammo demand from units due to not having a general, in thousands
+#   JAM_army_ammo_demand_defending:  Current ammo demand from defending units, in thousands
+#   JAM_army_ammo_demand_attacking:  Current ammo demand from attacking units, in thousands
 JAM_se_calculate_army_ammo_demand = {
     # Declaring some working variables
     set_temp_variable = {
@@ -660,14 +666,23 @@ JAM_se_calculate_army_ammo_demand = {
         set_temp_variable      = { temp_units   = no_leader_units }
         multiply_temp_variable = { temp_units   = 0.5 }
         add_to_temp_variable   = { total_demand = temp_units }
+        set_variable = {
+            JAM_army_ammo_demand_leaderless = temp_units
+        }
         
         # Defending: 100% consumption
-        add_to_temp_variable   = { total_demand = def_units }
+        add_to_temp_variable = { total_demand = def_units }
+        set_variable = {
+            JAM_army_ammo_demand_defending = def_units
+        }
         
         # Attacking: 200% consumption
         set_temp_variable      = { temp_units   = atk_units }
         multiply_temp_variable = { temp_units   = 2 }
         add_to_temp_variable   = { total_demand = temp_units }
+        set_variable = {
+            JAM_army_ammo_demand_attacking = temp_units
+        }
         
         # Calculate ratio
         divide_temp_variable = { total_demand = total_units }
@@ -1123,16 +1138,207 @@ JAM_se_calculate_ammo_produced = {
     }
 }
 
+# Determine current ammo capacity
+# Outputs the following values to the listed variables:
+#   JAM_ammo_capacity:  Total ammo capacity, in thousands
+#   JAM_ammo_cap_infra: Total ammo capacity excluding the quantity from base, in thousands
+JAM_se_calculate_ammo_capacity = {
+    set_temp_variable = {
+        ammo_cap = 0
+    }
+    every_controlled_state = {
+        limit = {
+            infrastructure_level > 0
+        }
+        set_temp_variable = {
+            temp_cap = infrastructure_level
+        }
+        multiply_temp_variable = {
+            temp_cap = @JAM_ammo_cap_per_infra
+        }
+        add_to_temp_variable = {
+            ammo_cap = temp_cap
+        }
+    }
+    set_variable = {
+        JAM_ammo_cap_infra = ammo_cap
+    }
+    add_to_temp_variable = {
+        ammo_cap = @JAM_base_ammo_capacity
+    }
+    set_variable = {
+        JAM_ammo_capacity = ammo_cap
+    }
+}
+
+# Computes some misc. deriative values
+# Outputs the following values to the listed variables:
+#   JAM_army_ammo_demand_now_M: Same as the similarly-named variable except expresses amount in millions
+#   JAM_army_ammo_demand_max_M
+#   JAM_army_ammo_demand_leaderless_M
+#   JAM_army_ammo_demand_defending_M
+#   JAM_army_ammo_demand_attacking_M
+#   JAM_navy_ammo_demand_now_M
+#   JAM_navy_ammo_demand_max_M
+#   JAM_air_ammo_demand_now_M
+#   JAM_air_ammo_demand_max_M
+#   JAM_ammo_produced_M
+#   JAM_ammo_net_change:       Current net change in ammo quantity
+#   JAM_ammo_is_accumulating:  Boolean indicating if ammo is accumulating (net inflow) or not.
+#   JAM_ammo_days_remaining:   Number of days until max ammo if accumulating or until no ammo left if not accumulating
+#   JAM_ammo_months_remaining: Same as above but in months
+#   JAM_ammo_years_remaining:  Same as above but in years
+JAM_se_calculate_derivative_values = {
+    # Millions vars
+    set_variable    = { JAM_army_ammo_demand_now_M = JAM_army_ammo_demand_now }
+    divide_variable = { JAM_army_ammo_demand_now_M = 1000 }
+    set_variable    = { JAM_army_ammo_demand_max_M = JAM_army_ammo_demand_max }
+    divide_variable = { JAM_army_ammo_demand_max_M = 1000 }
+    set_variable    = { JAM_army_ammo_demand_leaderless_M = JAM_army_ammo_demand_leaderless }
+    divide_variable = { JAM_army_ammo_demand_leaderless_M = 1000 }
+    set_variable    = { JAM_army_ammo_demand_defending_M  = JAM_army_ammo_demand_defending }
+    divide_variable = { JAM_army_ammo_demand_defending_M  = 1000 }
+    set_variable    = { JAM_army_ammo_demand_attacking_M  = JAM_army_ammo_demand_attacking }
+    divide_variable = { JAM_army_ammo_demand_attacking_M  = 1000 }
+    set_variable    = { JAM_navy_ammo_demand_now_M = JAM_navy_ammo_demand_now }
+    divide_variable = { JAM_navy_ammo_demand_now_M = 1000 }
+    set_variable    = { JAM_navy_ammo_demand_max_M = JAM_navy_ammo_demand_max }
+    divide_variable = { JAM_navy_ammo_demand_max_M = 1000 }
+    set_variable    = { JAM_air_ammo_demand_now_M  = JAM_air_ammo_demand_now }
+    divide_variable = { JAM_air_ammo_demand_now_M  = 1000 }
+    set_variable    = { JAM_air_ammo_demand_max_M  = JAM_air_ammo_demand_max }
+    divide_variable = { JAM_air_ammo_demand_max_M  = 1000 }
+    set_variable    = { JAM_ammo_produced_M = JAM_ammo_produced }
+    divide_variable = { JAM_ammo_produced_M = 1000 }
+    
+    # Net maths
+    set_temp_variable = {
+        ammo_net = JAM_ammo_produced
+    }
+    subtract_from_temp_variable = {
+        ammo_net = JAM_army_ammo_demand_now
+    }
+    subtract_from_temp_variable = {
+        ammo_net = JAM_navy_ammo_demand_now
+    }
+    subtract_from_temp_variable = {
+        ammo_net = JAM_air_ammo_demand_now
+    }
+    set_variable = {
+        JAM_ammo_net_change = ammo_net
+    }
+    
+    if = {
+        limit = {
+            NOT = {
+                AND = {
+                    has_variable = JAM_ammo_stockpile
+                    has_variable = JAM_ammo_capacity
+                }
+            }
+        }
+        set_variable = {
+            JAM_ammo_stockpile = 0
+        }
+        JAM_se_calculate_ammo_capacity = yes
+    }
+    if = {
+        limit = {
+            check_variable = { ammo_net > 0 }
+        }
+        set_variable = {
+            JAM_ammo_is_accumulating = yes
+        }
+        
+        set_temp_variable  = {
+            remaining_ammo = JAM_ammo_capacity
+        }
+        subtract_from_temp_variable  = {
+            remaining_ammo = JAM_ammo_stockpile
+        }
+        set_variable = {
+            JAM_ammo_days_remaining = remaining_ammo
+        }
+        divide_variable = {
+            JAM_ammo_days_remaining = JAM_ammo_net_change
+        }
+        
+        set_variable = {
+            JAM_ammo_months_remaining = JAM_ammo_days_remaining
+        }
+        divide_variable = {
+            JAM_ammo_months_remaining = 30
+        }
+        
+        set_variable = {
+            JAM_ammo_years_remaining = JAM_ammo_days_remaining
+        }
+        divide_variable = {
+            JAM_ammo_years_remaining = 365
+        }
+    }
+    else_if = {
+        limit = {
+            check_variable = { ammo_net < 0 }
+        }
+        set_variable = {
+            JAM_ammo_is_accumulating = no
+        }
+        
+        set_temp_variable  = {
+            remaining_ammo = JAM_ammo_stockpile
+        }
+        set_variable = {
+            JAM_ammo_days_remaining = remaining_ammo
+        }
+        divide_variable = {
+            JAM_ammo_days_remaining = JAM_ammo_net_change
+        }
+        
+        set_variable = {
+            JAM_ammo_months_remaining = JAM_ammo_days_remaining
+        }
+        divide_variable = {
+            JAM_ammo_months_remaining = 30
+        }
+        
+        set_variable = {
+            JAM_ammo_years_remaining = JAM_ammo_days_remaining
+        }
+        divide_variable = {
+            JAM_ammo_years_remaining = 365
+        }
+    }
+    else = {
+        set_variable = {
+            JAM_ammo_is_accumulating = yes
+        }
+        set_variable = {
+            JAM_ammo_days_remaining = 36500 # arbitrary high number lol
+        }
+        set_variable = {
+            JAM_ammo_months_remaining = 1200
+        }
+        set_variable = {
+            JAM_ammo_years_remaining = 100
+        }
+    }
+}
+
+# Runs all of the above
+JAM_se_calculate_all = {
+    JAM_se_calculate_ammo_capacity     = yes
+    JAM_se_calculate_army_ammo_demand  = yes
+    JAM_se_calculate_navy_ammo_demand  = yes
+    JAM_se_calculate_air_ammo_demand   = yes
+    JAM_se_calculate_ammo_produced     = yes
+    JAM_se_calculate_derivative_values = yes
+}
+
 # Debug
 JAM_se_debug = {
     # set_variable = {
         # var   = JAM_debug_var
         # value = num_of_available_military_factories
     # }
-}
-JAM_se_debug_run_all_maths = {
-    JAM_se_calculate_army_ammo_demand = yes
-    JAM_se_calculate_navy_ammo_demand = yes
-    JAM_se_calculate_air_ammo_demand = yes
-    JAM_se_calculate_ammo_produced = yes
 }
