@@ -619,9 +619,16 @@ JAM_se_calculate_army_ammo_demand = {
         multiply_temp_variable = { total_demand = @JAM_army_ammo_mult }
         
         # Record theoretical max demand
+        set_temp_variable = {
+            var   = normal_max_demand # Saving a copy for later use - see below
+            value = total_demand
+        }
         set_variable = {
             var   = JAM_army_ammo_demand_max
             value = total_demand
+        }
+        multiply_variable = { # Theoretical max if every land division is attacking simultaneously
+            JAM_army_ammo_demand_max = 2
         }
         
         # Calculate current demand
@@ -666,22 +673,43 @@ JAM_se_calculate_army_ammo_demand = {
         set_temp_variable      = { temp_units   = no_leader_units }
         multiply_temp_variable = { temp_units   = 0.5 }
         add_to_temp_variable   = { total_demand = temp_units }
+        
         set_variable = {
             JAM_army_ammo_demand_leaderless = temp_units
+        }
+        divide_variable = {
+            JAM_army_ammo_demand_leaderless = total_units
+        }
+        multiply_variable = {
+            JAM_army_ammo_demand_leaderless = normal_max_demand
         }
         
         # Defending: 100% consumption
         add_to_temp_variable = { total_demand = def_units }
+        
         set_variable = {
             JAM_army_ammo_demand_defending = def_units
+        }
+        divide_variable = {
+            JAM_army_ammo_demand_defending = total_units
+        }
+        multiply_variable = {
+            JAM_army_ammo_demand_defending = normal_max_demand
         }
         
         # Attacking: 200% consumption
         set_temp_variable      = { temp_units   = atk_units }
         multiply_temp_variable = { temp_units   = 2 }
         add_to_temp_variable   = { total_demand = temp_units }
+        
         set_variable = {
             JAM_army_ammo_demand_attacking = temp_units
+        }
+        divide_variable = {
+            JAM_army_ammo_demand_attacking = total_units
+        }
+        multiply_variable = {
+            JAM_army_ammo_demand_attacking = normal_max_demand
         }
         
         # Calculate ratio
@@ -697,7 +725,10 @@ JAM_se_calculate_army_ammo_demand = {
     # Final output
     set_variable = {
         var   = JAM_army_ammo_demand_now
-        value = total_demand
+        value = normal_max_demand
+    }
+    multiply_variable = {
+        JAM_army_ammo_demand_now = total_demand
     }
 }
 
