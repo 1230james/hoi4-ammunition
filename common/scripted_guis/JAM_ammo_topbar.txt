@@ -11,12 +11,12 @@ scripted_gui = {
 		}
 
 		properties = {
-			GFX_JAM_topbar_ammo_bar = {
-				frame = ammo_ratio_var
+			JAM_ammo_ratio_bar = {
+				frame = JAM_topbar_ratio
 			}
 
-			GFX_JAM_ammo_icon = {
-				frame = ammo_frame_var
+			JAM_ammo_icon = {
+				frame = JAM_topbar_icon_index
 			}
         }
 

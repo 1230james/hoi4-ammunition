@@ -285,6 +285,28 @@ JAM_se_handle_ammo_distribution = {
     }
 }
 
+# Handles updating variables for driving UI elements
+JAM_se_handle_gui_vars = {
+    # Topbar icon
+    if = {
+        limit = {
+            OR = {
+                check_variable = { JAM_ammo_net_change > 0 }
+                check_variable = { JAM_ammo_net_change = 0 }
+            }
+        }
+        set_variable = { JAM_topbar_icon_index = 2 }
+    }
+    else = {
+        set_variable = { JAM_topbar_icon_index = 3 }
+    }
+    
+    # Topbar bar
+    set_variable      = { JAM_topbar_ratio = JAM_ammo_stockpile }
+    divide_variable   = { JAM_topbar_ratio = JAM_ammo_capacity  }
+    multiply_variable = { JAM_topbar_ratio = 100 }
+}
+
 # Handles day-to-day
 JAM_se_country_daily = {
     JAM_se_calculate_all = yes
@@ -297,6 +319,8 @@ JAM_se_country_daily = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    
+    JAM_se_handle_gui_vars = yes
 }
 JAM_se_country_weekly = {
     JAM_se_calculate_all = yes
@@ -314,6 +338,8 @@ JAM_se_country_weekly = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    
+    JAM_se_handle_gui_vars = yes
 }
 
 # Initializes values for the current country
@@ -365,8 +391,8 @@ JAM_se_init_vars = {
     }
     else_if = { # Italy / Ethiopia 1936
         limit = {
-            exists = ITA
-            exists = ETH
+            country_exists = ITA
+            country_exists = ETH
             OR = {
                 tag = ITA
                 tag = ETH
@@ -394,8 +420,10 @@ JAM_se_init_vars = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    
+    # Update GUI
+    JAM_se_handle_gui_vars = yes
 }
-
 
 # Debug
 JAM_se_debug = {

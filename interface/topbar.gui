@@ -37,7 +37,7 @@ guiTypes = {
 #			spriteType = "GFX_topbar_date_overlay"
 #			position = { x= -357 y = 0 }
 #			Orientation = "UPPER_RIGHT"
-#		}		
+#		}
 
 		containerWindowType = {
 			name = "toggle_music_commands_win"
@@ -234,6 +234,7 @@ guiTypes = {
 				maxWidth = 30
 				maxHeight = 24
 				fixedsize = yes
+                alwaystransparent = yes
 			}
 		}
 
@@ -266,6 +267,7 @@ guiTypes = {
 				maxWidth = 30
 				maxHeight = 24
 				fixedsize = yes
+                alwaystransparent = yes
 			}
 		}
 
@@ -298,6 +300,7 @@ guiTypes = {
 				maxWidth = 30
 				maxHeight = 24
 				fixedsize = yes
+                alwaystransparent = yes
 			}
 		}		
 		
@@ -330,6 +333,7 @@ guiTypes = {
 				maxWidth = 30
 				maxHeight = 24
 				fixedsize = yes
+                alwaystransparent = yes
 			}
 		}
 		
