@@ -1,13 +1,115 @@
 on_actions = {
+    # Initialize
     on_startup = {
         effect = {
-            # TODO: Starting ammunition
+            every_country = {
+                JAM_se_init_vars = yes
+                
+                if = {
+                    limit = {
+                        JAM_st_should_run_daily = yes
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 1
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 2
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 3
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 4
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 5
+                    }
+                    country_event = {
+                        id   = JAM_ev.1
+                        days = 6
+                    }
+                }
+            }
         }
     }
-
-    on_daily = {
+    
+    # Mid-game initializations
+    on_liberate = {
         effect = {
-            
+            ROOT = {
+                JAM_se_init_vars = yes
+            }
         }
     }
+    on_release_as_free = {
+        effect = {
+            ROOT = {
+                JAM_se_init_vars = yes
+            }
+        }
+    }
+    on_release_as_puppet = {
+        effect = {
+            ROOT = {
+                JAM_se_init_vars = yes
+            }
+        }
+    }
+    
+    # Normal running
+	on_weekly = {
+		effect = {
+            # Failsafe for mid-game country creations
+            if = {
+                limit = {
+                    NOT = {
+                        has_variable = JAM_army_priority
+                    }
+                }
+                JAM_se_init_vars = yes
+            }
+            
+            # Fire weekly for AI minors for performance savings
+			if = {
+                limit = {
+                    JAM_st_should_run_daily = no
+                }
+                JAM_se_country_weekly = yes
+            }
+            
+            # Fire daily for players and AI majors
+            else = {
+                JAM_se_country_daily = yes
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 1
+                }
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 2
+                }
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 3
+                }
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 4
+                }
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 5
+                }
+                country_event = {
+                    id   = JAM_ev.1
+                    days = 6
+                }
+            }
+		}
+	}
 }

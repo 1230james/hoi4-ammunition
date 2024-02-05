@@ -353,12 +353,13 @@ JAM_se_init_vars = {
     JAM_se_calculate_all = yes
     
     # Starting ammo
-    # 1 years' worth (or 4 years' worth in 1936 start)
+    # 1 years' worth (or 4 years' worth in 1939 start)
     set_temp_variable = { produced_ammo = JAM_ammo_produced }
     
     set_temp_variable           = { years_mult    = global.year }
     subtract_from_temp_variable = { years_mult    = 1935 }
     multiply_temp_variable      = { produced_ammo = years_mult }
+    multiply_temp_variable      = { produced_ammo = 365 }
     
     # Mobilization multiplier
     set_temp_variable = { mob_mult = 0.25 }
