@@ -1362,11 +1362,3 @@ JAM_se_calculate_all = {
     JAM_se_calculate_ammo_produced     = yes
     JAM_se_calculate_derivative_values = yes
 }
-
-# Debug
-JAM_se_debug = {
-    # set_variable = {
-        # var   = JAM_debug_var
-        # value = num_of_available_military_factories
-    # }
-}

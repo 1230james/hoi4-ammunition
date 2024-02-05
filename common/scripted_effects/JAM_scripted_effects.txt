@@ -76,556 +76,328 @@ JAM_se_handle_dyn_modifier = {
     }
 }
 
-# Determine if factories are slowed down, and if so, by how much
-# Outputs the following values to the listed variables:
-#   CFR_factory_output_reduction: Decimal expression of % slowdown; range is [-1.00, 0]
-#   CFR_steel_deficit:    Qty. of steel demand not met; always 0 if there is no shortage; positive number
-#   CFR_chromium_deficit: Qty. of chromium demand not met; always 0 if no shortage; positive number
-CFR_se_calculate_factory_output_reduction = {
-    # Set/reset variables
-    set_variable = {
-        var   = CFR_factory_output_reduction
-        value = 0
-    }
-    set_variable = {
-        var   = CFR_steel_deficit
-        value = resource@steel
-    }
-    set_variable = {
-        var   = CFR_chromium_deficit
-        value = resource@chromium
-    }
+# Handles ammo distribution & penalty calculations
+JAM_se_handle_ammo_distribution = {
+    # Ugly code warning
+    set_temp_variable = { available_ammo = JAM_ammo_stockpile }
     
-    # Clamp
-    clamp_variable = {
-        var = CFR_steel_deficit
-        max = 0
-    }
-    clamp_variable = {
-        var = CFR_chromium_deficit
-        max = 0
-    }
+    set_temp_variable = { demanded_ammo  = 0 } # qty demanded at current priority level
+    set_temp_variable = { ammo_allocated = 0 } # qty allocated for current priority level
     
-    # Flip sign (since these values are used for user-facing text)
-    multiply_variable = {
-        var   = CFR_steel_deficit
-        value = -1
-    }
-    multiply_variable = {
-        var   = CFR_chromium_deficit
-        value = -1
-    }
+    set_temp_variable = { army_allocation = 0 } # final total allocated to army
+    set_temp_variable = { navy_allocation = 0 } #            ""            navy
+    set_temp_variable = { air_allocation  = 0 } #            ""            air force
     
-    # Determine shortage impact
-    # First calculates what % of a shortage there is, i.e. the ratio between the shortage qty. and the qty. demanded
-    # Uses that % to scale the magnitude of the impact modifier
+    # High priority
     if = {
-        limit = {
-            OR = {
-                check_variable = { CFR_steel_usage > 0 }
-                check_variable = { CFR_chromium_usage > 0 }
-            }
-        }
-        set_temp_variable = {
-            var   = steel_shortage
-            value = 0
-        }
-        set_temp_variable = {
-            var   = chromium_shortage
-            value = 0
-        }
+        limit = { check_variable = { JAM_army_priority = 3 } }
+        add_to_temp_variable = { demanded_ammo = JAM_army_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 3 } }
+        add_to_temp_variable = { demanded_ammo = JAM_navy_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 3 } }
+        add_to_temp_variable = { demanded_ammo = JAM_air_ammo_demand_now }
+    }
+    set_temp_variable    = { ammo_allocated = demanded_ammo }
+    clamp_temp_variable  = { # DIV/0 guard
+        var = demanded_ammo
+        min = 0.001
+    }
+    clamp_temp_variable  = {
+        var = ammo_allocated
+        max = available_ammo
+    }
+    subtract_from_temp_variable = { available_ammo = ammo_allocated }
+    if = {
+        limit = { check_variable = { JAM_army_priority = 3 } }
+        set_temp_variable    = { portion = JAM_army_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { army_allocation = ammo_allocated }
+        multiply_temp_variable = { army_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 3 } }
+        set_temp_variable    = { portion = JAM_navy_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { navy_allocation = ammo_allocated }
+        multiply_temp_variable = { navy_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 3 } }
+        set_temp_variable    = { portion = JAM_air_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { air_allocation = ammo_allocated }
+        multiply_temp_variable = { air_allocation = portion }
+    }
+    set_temp_variable = { demanded_ammo = 0 }
+    
+    # Medium priority
+    if = {
+        limit = { check_variable = { JAM_army_priority = 2 } }
+        add_to_temp_variable = { demanded_ammo = JAM_army_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 2 } }
+        add_to_temp_variable = { demanded_ammo = JAM_navy_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 2 } }
+        add_to_temp_variable = { demanded_ammo = JAM_air_ammo_demand_now }
+    }
+    set_temp_variable    = { ammo_allocated = demanded_ammo }
+    clamp_temp_variable  = { # DIV/0 guard
+        var = demanded_ammo
+        min = 0.001
+    }
+    clamp_temp_variable  = {
+        var = ammo_allocated
+        max = available_ammo
+    }
+    subtract_from_temp_variable = { available_ammo = ammo_allocated }
+    if = {
+        limit = { check_variable = { JAM_army_priority = 2 } }
+        set_temp_variable    = { portion = JAM_army_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { army_allocation = ammo_allocated }
+        multiply_temp_variable = { army_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 2 } }
+        set_temp_variable    = { portion = JAM_navy_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { navy_allocation = ammo_allocated }
+        multiply_temp_variable = { navy_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 2 } }
+        set_temp_variable    = { portion = JAM_air_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { air_allocation = ammo_allocated }
+        multiply_temp_variable = { air_allocation = portion }
+    }
+    set_temp_variable = { demanded_ammo = 0 }
+    
+    # Low priority
+    if = {
+        limit = { check_variable = { JAM_army_priority = 1 } }
+        add_to_temp_variable = { demanded_ammo = JAM_army_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 1 } }
+        add_to_temp_variable = { demanded_ammo = JAM_navy_ammo_demand_now }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 1 } }
+        add_to_temp_variable = { demanded_ammo = JAM_air_ammo_demand_now }
+    }
+    set_temp_variable    = { ammo_allocated = demanded_ammo }
+    clamp_temp_variable  = { # DIV/0 guard
+        var = demanded_ammo
+        min = 0.001
+    }
+    clamp_temp_variable  = {
+        var = ammo_allocated
+        max = available_ammo
+    }
+    subtract_from_temp_variable = { available_ammo = ammo_allocated }
+    if = {
+        limit = { check_variable = { JAM_army_priority = 1 } }
+        set_temp_variable    = { portion = JAM_army_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { army_allocation = ammo_allocated }
+        multiply_temp_variable = { army_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_navy_priority = 1 } }
+        set_temp_variable    = { portion = JAM_navy_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { navy_allocation = ammo_allocated }
+        multiply_temp_variable = { navy_allocation = portion }
+    }
+    if = {
+        limit = { check_variable = { JAM_air_priority = 1 } }
+        set_temp_variable    = { portion = JAM_air_ammo_demand_now }
+        divide_temp_variable = { portion = demanded_ammo }
+        set_temp_variable      = { air_allocation = ammo_allocated }
+        multiply_temp_variable = { air_allocation = portion }
+    }
+    
+    # Calculate penalties
+    if = {
+        limit = { check_variable = { JAM_army_ammo_demand_now > 0 } }
         
-        if = {
-            limit = {
-                check_variable = { CFR_steel_usage > 0 }
-            }
-            set_temp_variable = {
-                var   = steel_shortage
-                value = var:CFR_steel_deficit
-            }
-            divide_temp_variable = {
-                var   = steel_shortage
-                value = var:CFR_steel_usage
-            }
-        }
-        if = {
-            limit = {
-                check_variable = { CFR_chromium_usage > 0 }
-            }
-            set_temp_variable = {
-                var   = chromium_shortage
-                value = var:CFR_chromium_deficit
-            }
-            divide_temp_variable = {
-                var   = chromium_shortage
-                value = var:CFR_chromium_usage
-            }
-        }
-        
-        add_to_temp_variable = { # variable reuse :)
-            var   = steel_shortage
-            value = temp_var:chromium_shortage
-        }
-        multiply_temp_variable = {
-            var   = steel_shortage
-            value = 0.5
-        }
-        clamp_temp_variable = {
-            var = steel_shortage
-            min = 0
-            max = 1
-        }
-        multiply_temp_variable = {
-            var   = steel_shortage
-            value = -0.75 # Max size of shortage penalty; must be negative here to flip the sign for the modifier
-        }
-        
-        set_variable = {
-            var   = CFR_debug_1
-            value = temp_var:steel_shortage
-        }
-        
-        set_variable = {
-            var   = CFR_factory_output_reduction
-            value = temp_var:steel_shortage
-        }
-    }
-}
-
-# Determine ammo usage rate of 
-# Outputs the following values to the listed variables:
-#   CFR_steel_usage:    Total qty. steel demanded
-#   CFR_chromium_usage: Total qty. chromium demanded
-#   CFR_heavy_industry: Qty. of civs used for construction & repair (i.e., usable by the player)
-#   CFR_light_industry: Qty. of civs used for trade, consumer goods, & projects (i.e., not usable by the player)
-CFR_se_calculate_resource_usage = {
-    # Set/reset variables
-    set_variable = {
-        var   = CFR_steel_usage
-        value = 0
-    }
-    set_variable = {
-        var   = CFR_chromium_usage
-        value = 0
-    }
-    set_variable = { # Factories used for construction & repair
-        var   = CFR_heavy_industry
-        value = num_of_civilian_factories_available_for_projects
-    }
-    set_variable = { # Factories used for consumer goods & projects
-        var   = CFR_light_industry
-        value = num_of_civilian_factories
-    }
-    subtract_from_variable = {
-        var   = CFR_light_industry
-        value = var:CFR_heavy_industry
-    }
-    
-    # Declaring some working variables
-    set_temp_variable = {
-        var   = total_civs
-        value = num_of_civilian_factories
-    }
-    set_temp_variable = {
-        var   = civs_in_bracket
-        value = 0
-    }
-    set_temp_variable = {
-        var   = temp_steel
-        value = 0
-    }
-    set_temp_variable = {
-        var   = temp_chromium
-        value = 0
-    }
-    
-    # Calculate total base usage
-    # Base rates are calculated using the following brackets:
-    # [  0,  15] => 0.00 S, 0.00 C (Steel, Chromium)
-    # ( 15,  30] => 0.25 S, 0.10 C
-    # ( 30,  45] => 0.50 S, 0.25 C
-    # ( 45,  60] => 0.75 S, 0.50 C
-    # ( 60,  75] => 1.00 S, 1.00 C
-    # ( 75, 105] => 1.25 S, 1.50 C
-    # (105, 210] => 1.75 S, 2.50 C
-    # (210, inf) => 2.50 S, 4.00 C
-    # Visualized: https://www.desmos.com/calculator/ihvtrjqhwo
-    # Please pardon my implementation btw :(
-    if = {
-        limit = {
-            check_variable = { total_civs > 210 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 210
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 2.5
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 4
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 105 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 105
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 1.75
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 2.5
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 75 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 75
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 1.25
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 1.5
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 60 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 60
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 1
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 1
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 45 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 45
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 0.75
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 0.50
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 30 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 30
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 0.5
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 0.25
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    if = {
-        limit = {
-            check_variable = { total_civs > 15 }
-        }
-        set_temp_variable = {
-            var   = civs_in_bracket
-            value = temp_var:total_civs
-        }
-        subtract_from_temp_variable = {
-            var   = civs_in_bracket
-            value = 15
-        }
-        set_temp_variable = {
-            var   = temp_steel
-            value = 0.25
-        }
-        set_temp_variable = {
-            var   = temp_chromium
-            value = 0.10
-        }
-        multiply_temp_variable = {
-            var   = temp_steel
-            value = temp_var:civs_in_bracket
-        }
-        multiply_temp_variable = {
-            var   = temp_chromium
-            value = temp_var:civs_in_bracket
-        }
-        add_to_variable = {
-            var   = CFR_steel_usage
-            value = temp_var:temp_steel
-        }
-        add_to_variable = {
-            var   = CFR_chromium_usage
-            value = temp_var:temp_chromium
-        }
-        subtract_from_temp_variable = {
-            var   = total_civs
-            value = temp_var:civs_in_bracket
-        }
-    }
-    
-    # Add tech discounts (additive, as is Clausewitz tradition)
-    set_temp_variable = {
-        var   = discount
-        value = 1
-    }
-    if = {
-        limit = {
-            has_tech = construction2
-        }
-        subtract_from_temp_variable = {
-            var   = discount
-            value = 0.05
-        }
-    }
-    if = {
-        limit = {
-            has_tech = construction3
-        }
-        subtract_from_temp_variable = {
-            var   = discount
-            value = 0.05
-        }
-    }
-    if = {
-        limit = {
-            has_tech = construction4
-        }
-        subtract_from_temp_variable = {
-            var   = discount
-            value = 0.05
-        }
-    }
-    if = {
-        limit = {
-            has_tech = construction5
-        }
-        subtract_from_temp_variable = {
-            var   = discount
-            value = 0.05
-        }
-    }
-    
-    # Heavy vs light industry weighting
-    # Light industry has 50% reduced resource demand
-    if = {
-        limit = {
-            num_of_civilian_factories > 0
-        }
-        set_temp_variable = {
-            var   = weight
-            value = var:CFR_light_industry
-        }
-        multiply_temp_variable = {
-            var   = weight
-            value = 0.50
-        }
-        add_to_temp_variable = {
-            var   = weight
-            value = var:CFR_heavy_industry
-        }
-        divide_temp_variable = {
-            var   = weight
-            value = num_of_civilian_factories
+        set_temp_variable    = { army_penalty = -0.99 }   # Penalty maxes out at -99% and requires at least 1% shortage
+        set_temp_variable    = { temp = army_allocation } # in order to affect troops
+        divide_temp_variable = { temp = JAM_army_ammo_demand_now }
+        add_to_temp_variable = { army_penalty = temp }
+        clamp_temp_variable  = {
+            var = army_penalty
+            max = 0
         }
     }
     else = {
-        set_temp_variable = {
-            var   = weight
-            value = 0
+        set_temp_variable = { army_penalty = 0 }
+    }
+    
+    if = {
+        limit = { check_variable = { JAM_navy_ammo_demand_now > 0 } }
+        
+        set_temp_variable    = { navy_penalty = -0.99 }
+        set_temp_variable    = { temp = navy_allocation }
+        divide_temp_variable = { temp = JAM_navy_ammo_demand_now }
+        add_to_temp_variable = { navy_penalty = temp }
+        clamp_temp_variable  = {
+            var = navy_penalty
+            max = 0
         }
     }
-    
-    # Apply discounts & weights
-    multiply_temp_variable = {
-        var   = discount
-        value = temp_var:weight
-    }
-    multiply_variable = {
-        var   = CFR_steel_usage
-        value = temp_var:discount
-    }
-    multiply_variable = {
-        var   = CFR_chromium_usage
-        value = temp_var:discount
+    else = {
+        set_temp_variable = { navy_penalty = 0 }
     }
     
-    # Round off
-    round_variable = CFR_steel_usage
-    round_variable = CFR_chromium_usage
+    if = {
+        limit = { check_variable = { JAM_air_ammo_demand_now > 0 } }
+        
+        set_temp_variable    = { air_penalty = -0.99 }
+        set_temp_variable    = { temp = air_allocation }
+        divide_temp_variable = { temp = JAM_air_ammo_demand_now }
+        add_to_temp_variable = { air_penalty = temp }
+        clamp_temp_variable  = {
+            var = air_penalty
+            max = 0
+        }
+    }
+    else = {
+        set_temp_variable = { air_penalty = 0 }
+    }
+    
+    # Final writes
+    set_variable = { JAM_ammo_stockpile = available_ammo }
+    set_variable = { JAM_army_penalty   = army_penalty   }
+    set_variable = { JAM_navy_penalty   = navy_penalty   }
+    set_variable = { JAM_air_penalty    = air_penalty    }
+    
+    set_variable = {
+        JAM_debug_var = air_allocation
+    }
+}
+
+# Handles day-to-day
+JAM_se_country_daily = {
+    JAM_se_calculate_all = yes
+    
+    JAM_se_handle_ammo_distribution = yes
+    JAM_se_handle_dyn_modifier = yes
+    
+    add_to_variable = { JAM_ammo_stockpile = JAM_ammo_produced }
+    clamp_variable  = {
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+}
+JAM_se_country_weekly = {
+    JAM_se_calculate_all = yes
+    
+    multiply_variable = { JAM_army_ammo_demand_now = 7 }
+    multiply_variable = { JAM_navy_ammo_demand_now = 7 }
+    multiply_variable = { JAM_air_ammo_demand_now  = 7 }
+    multiply_variable = { JAM_ammo_produced        = 7 }
+    
+    JAM_se_handle_ammo_distribution = yes
+    JAM_se_handle_dyn_modifier = yes
+    
+    add_to_variable = { JAM_ammo_stockpile = JAM_ammo_produced }
+    clamp_variable  = {
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+}
+
+# Initializes values for the current country
+JAM_se_init_vars = {
+    # Init vars
+    set_variable = { JAM_ammo_stockpile = 0 }
+    set_variable = { JAM_army_priority  = 2 }
+    set_variable = { JAM_navy_priority  = 2 }
+    set_variable = { JAM_air_priority   = 2 }
+    
+    JAM_se_calculate_all = yes
+    
+    # Starting ammo
+    # 1 years' worth (or 4 years' worth in 1936 start)
+    set_temp_variable = { produced_ammo = JAM_ammo_produced }
+    
+    set_temp_variable           = { years_mult    = global.year }
+    subtract_from_temp_variable = { years_mult    = 1935 }
+    multiply_temp_variable      = { produced_ammo = years_mult }
+    
+    # Mobilization multiplier
+    set_temp_variable = { mob_mult = 0.25 }
+    if = {
+        limit = { has_idea = low_economic_mobilisation }
+        set_temp_variable = { mob_mult = 0.5 }
+    }
+    else_if = {
+        limit = { has_idea = partial_economic_mobilisation }
+        set_temp_variable = { mob_mult = 0.75 }
+    }
+    else_if = {
+        limit = { has_idea = war_economy }
+        set_temp_variable = { mob_mult = 1 }
+    }
+    else_if = {
+        limit = { has_idea = tot_economic_mobilisation }
+        set_temp_variable = { mob_mult = 1.25 }
+    }
+    multiply_temp_variable = { produced_ammo = mob_mult }
+    
+    # Specific countries
+    set_temp_variable = { misc_mult = 1 }
+    if = { # Germany 1939
+        limit = {
+            tag = GER
+            has_start_date > 1938.12.31
+        }
+        set_temp_variable = { misc_mult = 3 }
+    }
+    else_if = { # Italy / Ethiopia 1936
+        limit = {
+            exists = ITA
+            exists = ETH
+            OR = {
+                tag = ITA
+                tag = ETH
+            }
+            has_start_date < 1936.1.2
+        }
+        set_temp_variable = { misc_mult = 2 }
+    }
+    else_if = { # 2nd Sino-Japanese War
+        limit = {
+            OR = {
+                is_in_faction_with = JAP
+                is_in_faction_with = CHI
+                tag = JAP
+                tag = CHI
+            }
+            has_start_date > 1938.12.31
+        }
+        set_temp_variable = { misc_mult = 3 }
+    }
+    multiply_temp_variable = { produced_ammo = misc_mult }
+    
+    set_variable   = { JAM_ammo_stockpile = produced_ammo }
+    clamp_variable = {
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+}
+
+
+# Debug
+JAM_se_debug = {
+    # NOP
 }
