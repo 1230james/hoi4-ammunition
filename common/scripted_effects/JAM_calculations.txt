@@ -1091,7 +1091,9 @@ JAM_se_calculate_air_ammo_demand = {
 
 # Determine current ammo supply
 # Outputs the following values to the listed variables:
-#   JAM_ammo_produced: Total qty. of ammo created, in thousands
+#   JAM_ammo_produced:  Total qty. of ammo created, in thousands
+#   JAM_ammo_gain_busy: Qty. ammo produced by busy military factories, in thousands
+#   JAM_ammo_gain_idle: Qty. ammo produced by idle military factories, in thousands
 JAM_se_calculate_ammo_produced = {
     # Set up base values
     set_temp_variable = {
@@ -1162,6 +1164,13 @@ JAM_se_calculate_ammo_produced = {
     
     # Final output
     set_variable = {
+        JAM_ammo_gain_idle = idle_mils
+    }
+    set_variable = {
+        JAM_ammo_gain_busy = busy_mils
+    }
+    
+    set_variable = {
         JAM_ammo_produced = idle_mils
     }
     add_to_variable = {
@@ -1201,6 +1210,8 @@ JAM_se_calculate_ammo_capacity = {
 
 # Computes some misc. deriative values
 # Outputs the following values to the listed variables:
+#   JAM_total_ammo_demand_now:  Combined ammo demand right now, in thousands
+#   JAM_total_ammo_demand_max:  Combined ammo demand, theoretical max, in thousands
 #   JAM_army_ammo_demand_now_M: Same as the similarly-named variable except expresses amount in millions
 #   JAM_army_ammo_demand_max_M
 #   JAM_army_ammo_demand_leaderless_M
@@ -1210,13 +1221,28 @@ JAM_se_calculate_ammo_capacity = {
 #   JAM_navy_ammo_demand_max_M
 #   JAM_air_ammo_demand_now_M
 #   JAM_air_ammo_demand_max_M
+#   JAM_total_ammo_demand_now_M
+#   JAM_total_ammo_demand_max_M
 #   JAM_ammo_produced_M
+#   JAM_ammo_gain_busy_M
+#   JAM_ammo_gain_idle_M
+#   JAM_ammo_capacity_M
+#   JAM_ammo_cap_infra_M
 #   JAM_ammo_net_change:       Current net change in ammo quantity
 #   JAM_ammo_is_accumulating:  Indicates if ammo is accumulating (net inflow) or not. 0 -> false, 1 -> true
 #   JAM_ammo_days_remaining:   Number of days until max ammo if accumulating or until no ammo left if not accumulating
 #   JAM_ammo_months_remaining: Same as above but in months
 #   JAM_ammo_years_remaining:  Same as above but in years
 JAM_se_calculate_derivative_values = {
+    # Total demand
+    set_variable    = { JAM_total_ammo_demand_now = JAM_army_ammo_demand_now }
+    add_to_variable = { JAM_total_ammo_demand_now = JAM_navy_ammo_demand_now }
+    add_to_variable = { JAM_total_ammo_demand_now = JAM_air_ammo_demand_now  }
+    
+    set_variable    = { JAM_total_ammo_demand_max = JAM_army_ammo_demand_max }
+    add_to_variable = { JAM_total_ammo_demand_max = JAM_navy_ammo_demand_max }
+    add_to_variable = { JAM_total_ammo_demand_max = JAM_air_ammo_demand_max  }
+    
     # Millions vars
     set_variable    = { JAM_army_ammo_demand_now_M = JAM_army_ammo_demand_now }
     divide_variable = { JAM_army_ammo_demand_now_M = 1000 }
@@ -1228,16 +1254,28 @@ JAM_se_calculate_derivative_values = {
     divide_variable = { JAM_army_ammo_demand_defending_M  = 1000 }
     set_variable    = { JAM_army_ammo_demand_attacking_M  = JAM_army_ammo_demand_attacking }
     divide_variable = { JAM_army_ammo_demand_attacking_M  = 1000 }
-    set_variable    = { JAM_navy_ammo_demand_now_M = JAM_navy_ammo_demand_now }
-    divide_variable = { JAM_navy_ammo_demand_now_M = 1000 }
-    set_variable    = { JAM_navy_ammo_demand_max_M = JAM_navy_ammo_demand_max }
-    divide_variable = { JAM_navy_ammo_demand_max_M = 1000 }
-    set_variable    = { JAM_air_ammo_demand_now_M  = JAM_air_ammo_demand_now }
-    divide_variable = { JAM_air_ammo_demand_now_M  = 1000 }
-    set_variable    = { JAM_air_ammo_demand_max_M  = JAM_air_ammo_demand_max }
-    divide_variable = { JAM_air_ammo_demand_max_M  = 1000 }
-    set_variable    = { JAM_ammo_produced_M = JAM_ammo_produced }
-    divide_variable = { JAM_ammo_produced_M = 1000 }
+    set_variable    = { JAM_navy_ammo_demand_now_M  = JAM_navy_ammo_demand_now }
+    divide_variable = { JAM_navy_ammo_demand_now_M  = 1000 }
+    set_variable    = { JAM_navy_ammo_demand_max_M  = JAM_navy_ammo_demand_max }
+    divide_variable = { JAM_navy_ammo_demand_max_M  = 1000 }
+    set_variable    = { JAM_air_ammo_demand_now_M   = JAM_air_ammo_demand_now }
+    divide_variable = { JAM_air_ammo_demand_now_M   = 1000 }
+    set_variable    = { JAM_air_ammo_demand_max_M   = JAM_air_ammo_demand_max }
+    divide_variable = { JAM_air_ammo_demand_max_M   = 1000 }
+    set_variable    = { JAM_total_ammo_demand_now_M = JAM_total_ammo_demand_now }
+    divide_variable = { JAM_total_ammo_demand_now_M = 1000 }
+    set_variable    = { JAM_total_ammo_demand_max_M = JAM_total_ammo_demand_max }
+    divide_variable = { JAM_total_ammo_demand_max_M = 1000 }
+    set_variable    = { JAM_ammo_produced_M  = JAM_ammo_produced }
+    divide_variable = { JAM_ammo_produced_M  = 1000 }
+    set_variable    = { JAM_ammo_gain_busy_M = JAM_ammo_gain_busy }
+    divide_variable = { JAM_ammo_gain_busy_M = 1000 }
+    set_variable    = { JAM_ammo_gain_idle_M = JAM_ammo_gain_idle }
+    divide_variable = { JAM_ammo_gain_idle_M = 1000 }
+    set_variable    = { JAM_ammo_capacity_M  = JAM_ammo_capacity }
+    divide_variable = { JAM_ammo_capacity_M  = 1000 }
+    set_variable    = { JAM_ammo_cap_infra_M = JAM_ammo_cap_infra }
+    divide_variable = { JAM_ammo_cap_infra_M = 1000 }
     
     # Net maths
     set_temp_variable = {

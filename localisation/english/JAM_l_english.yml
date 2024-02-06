@@ -1,0 +1,141 @@
+﻿l_english:
+    # Modifiers
+    JAM_dyn_mod_army_ammo_shortage: "Army Ammunition Shortage"
+    JAM_dyn_mod_navy_ammo_shortage: "Navy Ammunition Shortage"
+    JAM_dyn_mod_air_ammo_shortage:  "Air Ammunition Shortage"
+    
+    # Topbar
+    JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
+    
+    JAM_txt_full:       "§GFull§"
+    JAM_txt_p_gt_5_yrs: "§G>5.0 y§"
+    JAM_txt_p_years:    "§G[?JAM_ammo_years_remaining|1] y§"
+    JAM_txt_p_days:     "§G[?JAM_ammo_days_remaining|0] d§"
+    JAM_txt_n_days:     "§R[?JAM_ammo_days_remaining|0] d§"
+    JAM_txt_n_years:    "§R[?JAM_ammo_years_remaining|1] y§"
+    JAM_txt_n_gt_5_yrs: "§R>5.0 y§"
+    JAM_txt_empty:      "§REmpty§"
+    
+    # Tooltip
+    JAM_tt_header: "§HAmmunition§!"
+    
+    JAM_tt_current_ammo:   "Current Ammunition: §Y[JAM_sl_ammo_stockpile]§!"
+    JAM_tt_gain_breakdown: "Daily Gain: §Y[JAM_sl_ammo_produced]§!\n  From busy £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_busy]§!\n  From idle £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_idle]§!"
+    JAM_tt_capacity:       "Ammunition Capacity: §Y[JAM_sl_ammo_capacity]§!"
+    
+    JAM_tt_demand_now: "Current Daily Consumption: §Y[JAM_sl_total_ammo_demand_now]§!"
+    JAM_tt_demand_max: "Maximum Daily Consumption: §Y[JAM_sl_total_ammo_demand_max]§!"
+    
+    JAM_tt_army_header:      "§HArmy§!"
+    JAM_tt_army_demand_now:  "  Current consumption: §Y[JAM_sl_army_ammo_demand_now]§!/day"
+    JAM_tt_army_demand_bkdn: "    Consumption by §Rleaderless§! units: §Y[JAM_sl_army_ammo_demand_leaderless]§!/day\n    Consumption by defending units: §Y[JAM_sl_army_ammo_demand_defending]§!/day\n    Consumption by attacking units: §Y[JAM_sl_army_ammo_demand_attacking]§!/day"
+    JAM_tt_army_demand_max:  "  Maximum consumption: §Y[JAM_sl_army_ammo_demand_max]§!/day"
+    
+    JAM_tt_ammo_stats:     "[JAM_sl_tt_stats_bypass]"
+    JAM_tt_ammo_desc:      "[JAM_sl_tt_desc_bypass]"
+    JAM_tt_ammo_stats_raw: "$JAM_tt_header$\n\n$JAM_tt_current_ammo$\n$JAM_tt_gain_breakdown$\n$JAM_tt_capacity$\n\n$JAM_tt_demand_now$\n$JAM_tt_demand_max$\n\n$JAM_tt_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$\n\n"
+    JAM_tt_ammo_desc_raw:  "JAM_tt_TODO_2"
+    
+    # Numbers
+    # I miss Vic3 loc functions :(
+    JAM_txt_ammo_produced_K: "[?JAM_ammo_produced|1]K"
+    JAM_txt_ammo_produced_M: "[?JAM_ammo_produced_M|1]M"
+    
+    JAM_txt_ammo_stockpile_K: "[?JAM_ammo_stockpile|1]K"
+    JAM_txt_ammo_stockpile_M: "[?JAM_ammo_stockpile_M|1]M"
+    
+    JAM_txt_ammo_gain_busy_K: "[?JAM_ammo_gain_busy|1]K"
+    JAM_txt_ammo_gain_busy_M: "[?JAM_ammo_gain_busy_M|1]M"
+    
+    JAM_txt_ammo_gain_idle_K: "[?JAM_ammo_gain_idle|1]K"
+    JAM_txt_ammo_gain_idle_M: "[?JAM_ammo_gain_idle_M|1]M"
+    
+    JAM_txt_ammo_capacity_K: "[?JAM_ammo_capacity|1]K"
+    JAM_txt_ammo_capacity_M: "[?JAM_ammo_capacity_M|1]M"
+    
+    JAM_txt_total_ammo_demand_now_K: "[?JAM_total_ammo_demand_now|1]K"
+    JAM_txt_total_ammo_demand_now_M: "[?JAM_total_ammo_demand_now_M|1]M"
+    
+    JAM_txt_total_ammo_demand_max_K: "[?JAM_total_ammo_demand_max|1]K"
+    JAM_txt_total_ammo_demand_max_M: "[?JAM_total_ammo_demand_max_M|1]M"
+    
+    JAM_txt_army_ammo_demand_now_K: "[?JAM_army_ammo_demand_now|1]K"
+    JAM_txt_army_ammo_demand_now_M: "[?JAM_army_ammo_demand_now_M|1]M"
+    
+    JAM_txt_army_ammo_demand_max_K: "[?JAM_army_ammo_demand_max|1]K"
+    JAM_txt_army_ammo_demand_max_M: "[?JAM_army_ammo_demand_max_M|1]M"
+    
+    JAM_txt_army_ammo_demand_leaderless_K: "[?JAM_army_ammo_demand_leaderless|1]K"
+    JAM_txt_army_ammo_demand_leaderless_M: "[?JAM_army_ammo_demand_leaderless_M|1]M"
+    
+    JAM_txt_army_ammo_demand_defending_K: "[?JAM_army_ammo_demand_defending|1]K"
+    JAM_txt_army_ammo_demand_defending_M: "[?JAM_army_ammo_demand_defending_M|1]M"
+    
+    JAM_txt_army_ammo_demand_attacking_K: "[?JAM_army_ammo_demand_attacking|1]K"
+    JAM_txt_army_ammo_demand_attacking_M: "[?JAM_army_ammo_demand_attacking_M|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    JAM_txt_ foo _K: "[?foo|1]K"
+    JAM_txt_ foo _M: "[?foo|1]M"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # Utility
+    CFR_EMPTY_STR: ""
+    
+    # Modifiers
+    CFR_resource_modifier:       "£civ_factory $industrial_complex$ Input"
+    CFR_factory_output_modifier: "£civ_factory_output $industrial_complex$ Input Shortage"
+    
+    # Decision Category
+    CFR_decision_category:      "Civilian Factory Resources"
+    CFR_decision_category_desc: "$CFR_desc_byline$$CFR_desc_resources$$CFR_desc_factories$[CFR_technology_desc][CFR_input_shortage_desc]"
+    
+    CFR_desc_byline: "As our civilian industrial capacity grows, it will require additional resources to keep operating at full capacity."
+    
+    CFR_desc_resources: "\n\nWe currently need §Y[?CFR_steel_usage]§! §4$PRODUCTION_MATERIALS_STEEL$§! and §Y[?CFR_chromium_usage]§! §6$PRODUCTION_MATERIALS_CHROMIUM$§! for our §Y[?num_of_civilian_factories] Civilian Factories§!."
+    
+    CFR_desc_factories: "\n\n§Y[?CFR_light_industry]§! of our Civilian Factories require §G50% fewer§! resources due to being allocated for low-intensity purposes, such as $PRODUCTION_CONSUMER_GOODS$, $CONSTRUCTION_FACTORIES_PROJECTS_LABEL$, and $CONSTRUCTION_FACTORIES_TRADE_LABEL$."
+    
+    # Tech texts are hard-coded because I'm lazy lol
+    CFR_desc_tech_1: "\n\nWe require §G5% fewer§! input resources because we researched §H$construction2$§!."
+    CFR_desc_tech_2: "\n\nWe require §G10% fewer§! input resources because we researched §H$construction3$§!."
+    CFR_desc_tech_3: "\n\nWe require §G15% fewer§! input resources because we researched §H$construction4$§!."
+    CFR_desc_tech_4: "\n\nWe require §G20% fewer§! input resources because we researched §H$construction5$§!."
+    
+    CFR_desc_shortage: "\n\nWe currently have an §tinput shortage§! of [?CFR_steel_deficit|0-] §4$PRODUCTION_MATERIALS_STEEL$§! and [?CFR_chromium_deficit|0-] §6$PRODUCTION_MATERIALS_CHROMIUM$§!, leading to a §treduction§! in $industrial_complex$ output of [?CFR_factory_output_reduction|%.2+]."

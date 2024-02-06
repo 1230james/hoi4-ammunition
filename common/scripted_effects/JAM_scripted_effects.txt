@@ -291,6 +291,20 @@ JAM_se_handle_gui_vars = {
     if = {
         limit = {
             OR = {
+                check_variable = { JAM_ammo_years_remaining > 5 }
+                AND = {
+                    NOT = {
+                        check_variable = { JAM_ammo_net_change = 0 }
+                    }
+                    check_variable = { JAM_ammo_days_remaining = 0 }
+                }
+            }
+        }
+        set_variable = { JAM_topbar_icon_index = 1 }
+    }
+    else_if = {
+        limit = {
+            OR = {
                 check_variable = { JAM_ammo_net_change > 0 }
                 check_variable = { JAM_ammo_net_change = 0 }
             }
@@ -319,6 +333,8 @@ JAM_se_country_daily = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
+    divide_variable = { JAM_ammo_stockpile_M = 1000 }
     
     JAM_se_handle_gui_vars = yes
 }
@@ -338,6 +354,8 @@ JAM_se_country_weekly = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
+    divide_variable = { JAM_ammo_stockpile_M = 1000 }
     
     JAM_se_handle_gui_vars = yes
 }
@@ -421,6 +439,8 @@ JAM_se_init_vars = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
+    divide_variable = { JAM_ammo_stockpile_M = 1000 }
     
     # Update GUI
     JAM_se_handle_gui_vars = yes

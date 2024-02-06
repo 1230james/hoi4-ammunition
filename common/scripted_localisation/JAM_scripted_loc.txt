@@ -1,0 +1,320 @@
+defined_text = { # Needed to fix dollar sign notation
+    name = JAM_sl_tt_stats_bypass
+    
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_tt_ammo_stats_raw
+    }
+}
+defined_text = {
+    name = JAM_sl_tt_desc_bypass
+    
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_tt_ammo_desc_raw
+    }
+}
+
+defined_text = {
+    name = JAM_sl_ammo_status
+    
+    text = { # Full
+        trigger = {
+            check_variable = { JAM_ammo_days_remaining = 0 }
+            check_variable = { JAM_ammo_stockpile > 0 }
+        }
+        localization_key = JAM_txt_full
+    }
+    text = { # Empty
+        trigger = {
+            check_variable = { JAM_ammo_days_remaining = 0 }
+            NOT = {
+                check_variable = { JAM_ammo_stockpile > 0 }
+            }
+        }
+        localization_key = JAM_txt_empty
+    }
+    text = { # Exactly 0 net or gaining, >5yr
+        trigger = {
+            OR = {
+                check_variable = { JAM_ammo_net_change = 0 }
+                AND = {
+                    check_variable = { JAM_ammo_net_change > 0 }
+                    check_variable = { JAM_ammo_days_remaining > 1825 }
+                }
+            }
+        }
+        localization_key = JAM_txt_p_gt_5_yrs
+    }
+    text = { # Gaining, <=5yr and >=1yr
+        trigger = {
+            check_variable = { JAM_ammo_net_change > 0 }
+            check_variable = {
+                var     = JAM_ammo_days_remaining
+                value   = 1825
+                compare = less_than_or_equals
+            }
+            check_variable = {
+                var     = JAM_ammo_days_remaining
+                value   = 365
+                compare = greater_than_or_equals
+            }
+        }
+        localization_key = JAM_txt_p_years
+    }
+    text = { # Gaining, <1yr
+        trigger = {
+            check_variable = { JAM_ammo_net_change > 0 }
+            check_variable = { JAM_ammo_days_remaining < 365 }
+        }
+        localization_key = JAM_txt_p_days
+    }
+    text = { # Draining, <1yr
+        trigger = {
+            check_variable = { JAM_ammo_net_change < 0 }
+            check_variable = { JAM_ammo_days_remaining < 365 }
+        }
+        localization_key = JAM_txt_n_days
+    }
+    text = { # Draining, <=5yr and >=1yr
+        trigger = {
+            check_variable = { JAM_ammo_net_change < 0 }
+            check_variable = {
+                var     = JAM_ammo_days_remaining
+                value   = 1825
+                compare = less_than_or_equals
+            }
+            check_variable = {
+                var     = JAM_ammo_days_remaining
+                value   = 365
+                compare = greater_than_or_equals
+            }
+        }
+        localization_key = JAM_txt_n_years
+    }
+    text = { # Draining, >5yr
+        trigger = {
+            check_variable = { JAM_ammo_net_change < 0 }
+            check_variable = { JAM_ammo_days_remaining > 1825 }
+        }
+        localization_key = JAM_txt_n_gt_5_yrs
+    }
+}
+
+defined_text = {
+    name = JAM_sl_ammo_stockpile
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_stockpile < 1000 }
+        }
+        localization_key = JAM_txt_ammo_stockpile_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_ammo_stockpile_M
+    }
+}
+
+defined_text = {
+    name = JAM_sl_ammo_produced
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_produced_M < 1 }
+        }
+        localization_key = JAM_txt_ammo_produced_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_ammo_produced_M
+    }
+}
+defined_text = {
+    name = JAM_sl_ammo_gain_busy
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_gain_busy_M < 1 }
+        }
+        localization_key = JAM_txt_ammo_gain_busy_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_ammo_gain_busy_M
+    }
+}
+defined_text = {
+    name = JAM_sl_ammo_gain_idle
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_gain_idle_M < 1 }
+        }
+        localization_key = JAM_txt_ammo_gain_idle_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_ammo_gain_idle_M
+    }
+}
+defined_text = {
+    name = JAM_sl_ammo_capacity
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_capacity_M < 1 }
+        }
+        localization_key = JAM_txt_ammo_capacity_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_ammo_capacity_M
+    }
+}
+
+defined_text = {
+    name = JAM_sl_total_ammo_demand_now
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_total_ammo_demand_now_M < 1 }
+        }
+        localization_key = JAM_txt_total_ammo_demand_now_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_total_ammo_demand_now_M
+    }
+}
+defined_text = {
+    name = JAM_sl_total_ammo_demand_max
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_total_ammo_demand_max_M < 1 }
+        }
+        localization_key = JAM_txt_total_ammo_demand_max_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_total_ammo_demand_max_M
+    }
+}
+
+defined_text = {
+    name = JAM_sl_army_ammo_demand_now
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_ammo_demand_now_M < 1 }
+        }
+        localization_key = JAM_txt_army_ammo_demand_now_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_ammo_demand_now_M
+    }
+}
+defined_text = {
+    name = JAM_sl_army_ammo_demand_max
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_ammo_demand_max_M < 1 }
+        }
+        localization_key = JAM_txt_army_ammo_demand_max_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_ammo_demand_max_M
+    }
+}
+defined_text = {
+    name = JAM_sl_army_ammo_demand_leaderless
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_ammo_demand_leaderless_M < 1 }
+        }
+        localization_key = JAM_txt_army_ammo_demand_leaderless_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_ammo_demand_leaderless_M
+    }
+}
+defined_text = {
+    name = JAM_sl_army_ammo_demand_defending
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_ammo_demand_defending_M < 1 }
+        }
+        localization_key = JAM_txt_army_ammo_demand_defending_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_ammo_demand_defending_M
+    }
+}
+defined_text = {
+    name = JAM_sl_army_ammo_demand_attacking
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_ammo_demand_attacking_M < 1 }
+        }
+        localization_key = JAM_txt_army_ammo_demand_attacking_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_ammo_demand_attacking_M
+    }
+}
+
+defined_text = {
+    name = JAM_sl
+    
+    text = {
+        trigger = {
+            check_variable = { JAM < 1 }
+        }
+        localization_key = JAM_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_M
+    }
+}
+
