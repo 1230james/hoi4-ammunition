@@ -1360,6 +1360,9 @@ JAM_se_calculate_derivative_values = {
         divide_variable = {
             JAM_ammo_days_remaining = JAM_ammo_net_change
         }
+        multiply_variable = {
+            JAM_ammo_days_remaining = -1 # flip sign to positive
+        }
         
         set_variable = {
             JAM_ammo_months_remaining = JAM_ammo_days_remaining

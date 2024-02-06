@@ -1,4 +1,5 @@
-﻿l_english:
+﻿# TODO: Currently receiving numbers in current consumption lines if experiencing shortage
+l_english:
     # Modifiers
     JAM_dyn_mod_army_ammo_shortage: "Army Ammunition Shortage"
     JAM_dyn_mod_navy_ammo_shortage: "Navy Ammunition Shortage"
@@ -7,17 +8,18 @@
     # Topbar
     JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
     
-    JAM_txt_full:       "§GFull§"
-    JAM_txt_p_gt_5_yrs: "§G>5.0 y§"
-    JAM_txt_p_years:    "§G[?JAM_ammo_years_remaining|1] y§"
-    JAM_txt_p_days:     "§G[?JAM_ammo_days_remaining|0] d§"
-    JAM_txt_n_days:     "§R[?JAM_ammo_days_remaining|0] d§"
-    JAM_txt_n_years:    "§R[?JAM_ammo_years_remaining|1] y§"
-    JAM_txt_n_gt_5_yrs: "§R>5.0 y§"
-    JAM_txt_empty:      "§REmpty§"
+    JAM_txt_full:       "§GFull§!"
+    JAM_txt_p_gt_5_yrs: "§G>5.0 y§!"
+    JAM_txt_p_years:    "§G[?JAM_ammo_years_remaining|1] y§!"
+    JAM_txt_p_days:     "§G[?JAM_ammo_days_remaining|0] d§!"
+    JAM_txt_n_days:     "§R[?JAM_ammo_days_remaining|0] d§!"
+    JAM_txt_n_years:    "§R[?JAM_ammo_years_remaining|1] y§!"
+    JAM_txt_n_gt_5_yrs: "§R>5.0 y§!"
+    JAM_txt_empty:      "§REmpty§!"
     
     # Tooltip
     JAM_tt_header: "§HAmmunition§!"
+    JAM_txt_BLANK: ""
     
     JAM_tt_current_ammo:   "Current Ammunition: §Y[JAM_sl_ammo_stockpile]§!"
     JAM_tt_gain_breakdown: "Daily Gain: §Y[JAM_sl_ammo_produced]§!\n  From busy £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_busy]§!\n  From idle £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_idle]§!"
@@ -28,13 +30,43 @@
     
     JAM_tt_army_header:      "§HArmy§!"
     JAM_tt_army_demand_now:  "  Current consumption: §Y[JAM_sl_army_ammo_demand_now]§!/day"
-    JAM_tt_army_demand_bkdn: "    Consumption by §Rleaderless§! units: §Y[JAM_sl_army_ammo_demand_leaderless]§!/day\n    Consumption by defending units: §Y[JAM_sl_army_ammo_demand_defending]§!/day\n    Consumption by attacking units: §Y[JAM_sl_army_ammo_demand_attacking]§!/day"
+    JAM_tt_army_demand_bkdn: "[JAM_sl_tt_leaderless]    Consumption by defending units: §Y[JAM_sl_army_ammo_demand_defending]§!/day\n    Consumption by attacking units: §Y[JAM_sl_army_ammo_demand_attacking]§!/day"
     JAM_tt_army_demand_max:  "  Maximum consumption: §Y[JAM_sl_army_ammo_demand_max]§!/day"
+    JAM_tt_leaderless_txt:   "    Consumption by §Rleaderless§! units: §Y[JAM_sl_army_ammo_demand_leaderless]§!/day\n"
+    
+    JAM_tt_navy_header:     "§HNavy§!"
+    JAM_tt_navy_demand_now: "  Current consumption: §Y[JAM_sl_navy_ammo_demand_now]§!/day"
+    JAM_tt_navy_demand_max: "  Maximum consumption: §Y[JAM_sl_navy_ammo_demand_max]§!/day"
+    
+    JAM_tt_air_header:     "§HAir§!"
+    JAM_tt_air_demand_now: "  Current consumption: §Y[JAM_sl_air_ammo_demand_now]§!/day"
+    JAM_tt_air_demand_max: "  Maximum consumption: §Y[JAM_sl_air_ammo_demand_max]§!/day"
+    
+    JAM_tt_stockpile_cap:  "§HAmmunition Stockpile Capacity: [JAM_sl_ammo_capacity]§!"
+    JAM_tt_stockpile_base: "Base: §Y250.0K§!" # Keep up to date with @JAM_base_ammo_capacity in JAM_calculations.txt
+    JAM_tt_stockpile_infr: "In states: §Y[JAM_sl_ammo_cap_infra]§!"
+    
+    JAM_tt_time_p_gt_5_yrs: "§G>5.0 years§!"
+    JAM_tt_time_p_years:    "§G[?JAM_ammo_years_remaining|1] years§!"
+    JAM_tt_time_p_months:   "§G[?JAM_ammo_months_remaining|1] months§!"
+    JAM_tt_time_p_days:     "§G[?JAM_ammo_days_remaining|0] days§!"
+    JAM_tt_time_n_days:     "§R[?JAM_ammo_days_remaining|0] days§!"
+    JAM_tt_time_n_months:   "§R[?JAM_ammo_months_remaining|1] months§!"
+    JAM_tt_time_n_years:    "§R[?JAM_ammo_years_remaining|1] years§!"
+    JAM_tt_time_n_gt_5_yrs: "§R>5.0 years§!"
+    
+    JAM_tt_time_inc: "With current production rates, you will fill your ammunition capacity in [JAM_sl_time_remaining_duration]"
+    JAM_tt_time_dec: "With current consumption rates, you will be out of ammunition in [JAM_sl_time_remaining_duration]"
+    
+    JAM_tt_army_penalty_warning: "\n  §RA shortage of ammunition is impacting the army's combat performance by [?JAM_army_penalty|%1+]§!"
+    JAM_tt_navy_penalty_warning: "\n  §RA shortage of ammunition is impacting the navy's combat performance by [?JAM_navy_penalty|%1+]§!"
+    JAM_tt_air_penalty_warning:  "\n  §RA shortage of ammunition is impacting the air forces' combat performance by [?JAM_air_penalty|%1+]§!"
     
     JAM_tt_ammo_stats:     "[JAM_sl_tt_stats_bypass]"
-    JAM_tt_ammo_desc:      "[JAM_sl_tt_desc_bypass]"
-    JAM_tt_ammo_stats_raw: "$JAM_tt_header$\n\n$JAM_tt_current_ammo$\n$JAM_tt_gain_breakdown$\n$JAM_tt_capacity$\n\n$JAM_tt_demand_now$\n$JAM_tt_demand_max$\n\n$JAM_tt_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$\n\n"
-    JAM_tt_ammo_desc_raw:  "JAM_tt_TODO_2"
+    JAM_tt_ammo_stats_raw: "$JAM_tt_header$\n\n$JAM_tt_current_ammo$\n$JAM_tt_gain_breakdown$\n$JAM_tt_capacity$\n\n$JAM_tt_demand_now$\n$JAM_tt_demand_max$\n\n$JAM_tt_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$[JAM_sl_army_penalty_text]\n\n$JAM_tt_air_header$\n$JAM_tt_air_demand_now$\n$JAM_tt_air_demand_max$[JAM_sl_air_penalty_text]\n\n$JAM_tt_navy_header$\n$JAM_tt_navy_demand_now$\n$JAM_tt_navy_demand_max$[JAM_sl_navy_penalty_text]\n\n$JAM_tt_stockpile_cap$\n$JAM_tt_stockpile_base$\n$JAM_tt_stockpile_infr$\n\n[JAM_sl_time_remaining_body]"
+    
+    JAM_tt_ammo_desc:     "[JAM_sl_tt_desc_bypass]"
+    JAM_tt_ammo_desc_raw: "§YAmmunition§! is produced by your country's $arms_factory_plural$. All $arms_factory_plural$ contribute to the production of §YAmmunition§!, but ones that are not assigned to a production line will produce twice as much. Each country has a maximum capacity for §YAmmunition§! which can be increased by upgrading §Y$infrastructure$§! in the states it owns or controls.\n\n§YAmmunition§! is used by the army when in combat. Attacking will consume extra §YAmmunition§!. Army units without a $rank3$ will passively lose §YAmmunition§!. During times of war, §YAmmunition§! is also consumed by deployed air wings and naval units that are not docked."
     
     # Numbers
     # I miss Vic3 loc functions :(
@@ -74,68 +106,20 @@
     JAM_txt_army_ammo_demand_attacking_K: "[?JAM_army_ammo_demand_attacking|1]K"
     JAM_txt_army_ammo_demand_attacking_M: "[?JAM_army_ammo_demand_attacking_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
+    JAM_txt_navy_ammo_demand_now_K: "[?JAM_navy_ammo_demand_now|1]K"
+    JAM_txt_navy_ammo_demand_now_M: "[?JAM_navy_ammo_demand_now_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
+    JAM_txt_navy_ammo_demand_max_K: "[?JAM_navy_ammo_demand_max|1]K"
+    JAM_txt_navy_ammo_demand_max_M: "[?JAM_navy_ammo_demand_max_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
+    JAM_txt_air_ammo_demand_now_K: "[?JAM_air_ammo_demand_now|1]K"
+    JAM_txt_air_ammo_demand_now_M: "[?JAM_air_ammo_demand_now_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
+    JAM_txt_air_ammo_demand_max_K: "[?JAM_air_ammo_demand_max|1]K"
+    JAM_txt_air_ammo_demand_max_M: "[?JAM_air_ammo_demand_max_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
+    JAM_txt_ammo_capacity_K: "[?JAM_ammo_capacity|1]K"
+    JAM_txt_ammo_capacity_M: "[?JAM_ammo_capacity_M|1]M"
     
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
-    
-    JAM_txt_ foo _K: "[?foo|1]K"
-    JAM_txt_ foo _M: "[?foo|1]M"
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # Utility
-    CFR_EMPTY_STR: ""
-    
-    # Modifiers
-    CFR_resource_modifier:       "£civ_factory $industrial_complex$ Input"
-    CFR_factory_output_modifier: "£civ_factory_output $industrial_complex$ Input Shortage"
-    
-    # Decision Category
-    CFR_decision_category:      "Civilian Factory Resources"
-    CFR_decision_category_desc: "$CFR_desc_byline$$CFR_desc_resources$$CFR_desc_factories$[CFR_technology_desc][CFR_input_shortage_desc]"
-    
-    CFR_desc_byline: "As our civilian industrial capacity grows, it will require additional resources to keep operating at full capacity."
-    
-    CFR_desc_resources: "\n\nWe currently need §Y[?CFR_steel_usage]§! §4$PRODUCTION_MATERIALS_STEEL$§! and §Y[?CFR_chromium_usage]§! §6$PRODUCTION_MATERIALS_CHROMIUM$§! for our §Y[?num_of_civilian_factories] Civilian Factories§!."
-    
-    CFR_desc_factories: "\n\n§Y[?CFR_light_industry]§! of our Civilian Factories require §G50% fewer§! resources due to being allocated for low-intensity purposes, such as $PRODUCTION_CONSUMER_GOODS$, $CONSTRUCTION_FACTORIES_PROJECTS_LABEL$, and $CONSTRUCTION_FACTORIES_TRADE_LABEL$."
-    
-    # Tech texts are hard-coded because I'm lazy lol
-    CFR_desc_tech_1: "\n\nWe require §G5% fewer§! input resources because we researched §H$construction2$§!."
-    CFR_desc_tech_2: "\n\nWe require §G10% fewer§! input resources because we researched §H$construction3$§!."
-    CFR_desc_tech_3: "\n\nWe require §G15% fewer§! input resources because we researched §H$construction4$§!."
-    CFR_desc_tech_4: "\n\nWe require §G20% fewer§! input resources because we researched §H$construction5$§!."
-    
-    CFR_desc_shortage: "\n\nWe currently have an §tinput shortage§! of [?CFR_steel_deficit|0-] §4$PRODUCTION_MATERIALS_STEEL$§! and [?CFR_chromium_deficit|0-] §6$PRODUCTION_MATERIALS_CHROMIUM$§!, leading to a §treduction§! in $industrial_complex$ output of [?CFR_factory_output_reduction|%.2+]."
+    JAM_txt_ammo_cap_infra_K: "[?JAM_ammo_cap_infra|1]K"
+    JAM_txt_ammo_cap_infra_M: "[?JAM_ammo_cap_infra_M|1]M"
