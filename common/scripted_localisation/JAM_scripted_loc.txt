@@ -576,3 +576,101 @@ defined_text = {
         localization_key = JAM_txt_BLANK
     }
 }
+
+defined_text = {
+    name = JAM_sl_army_received
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_received_M < 1 }
+        }
+        localization_key = JAM_txt_army_received_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_army_received_M
+    }
+}
+defined_text = {
+    name = JAM_sl_navy_received
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_navy_received_M < 1 }
+        }
+        localization_key = JAM_txt_navy_received_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_navy_received_M
+    }
+}
+defined_text = {
+    name = JAM_sl_air_received
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_air_received_M < 1 }
+        }
+        localization_key = JAM_txt_air_received_K
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_air_received_M
+    }
+}
+
+defined_text = {
+    name = JAM_sl_army_shortage_text
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_penalty < -0.01 }
+        }
+        localization_key = JAM_tt_army_shortage_received
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_BLANK
+    }
+}
+defined_text = {
+    name = JAM_sl_navy_shortage_text
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_navy_penalty < -0.01 }
+        }
+        localization_key = JAM_tt_navy_shortage_received
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_BLANK
+    }
+}
+defined_text = {
+    name = JAM_sl_air_shortage_text
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_air_penalty < -0.01 }
+        }
+        localization_key = JAM_tt_air_shortage_received
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_txt_BLANK
+    }
+}

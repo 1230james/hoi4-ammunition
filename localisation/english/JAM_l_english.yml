@@ -29,18 +29,22 @@ l_english:
     JAM_tt_demand_max: "Maximum Daily Consumption: §Y[JAM_sl_total_ammo_demand_max]§!"
     
     JAM_tt_army_header:      "§HArmy§!"
-    JAM_tt_army_demand_now:  "  Current consumption: §Y[JAM_sl_army_ammo_demand_now]§!/day"
+    JAM_tt_army_demand_now:  "  Current consumption: §Y[JAM_sl_army_ammo_demand_now]§!/day [JAM_sl_army_shortage_text]"
     JAM_tt_army_demand_bkdn: "[JAM_sl_tt_leaderless]    Consumption by defending units: §Y[JAM_sl_army_ammo_demand_defending]§!/day\n    Consumption by attacking units: §Y[JAM_sl_army_ammo_demand_attacking]§!/day"
     JAM_tt_army_demand_max:  "  Maximum consumption: §Y[JAM_sl_army_ammo_demand_max]§!/day"
     JAM_tt_leaderless_txt:   "    Consumption by §Rleaderless§! units: §Y[JAM_sl_army_ammo_demand_leaderless]§!/day\n"
     
     JAM_tt_navy_header:     "§HNavy§!"
-    JAM_tt_navy_demand_now: "  Current consumption: §Y[JAM_sl_navy_ammo_demand_now]§!/day"
+    JAM_tt_navy_demand_now: "  Current consumption: §Y[JAM_sl_navy_ammo_demand_now]§!/day [JAM_sl_navy_shortage_text]"
     JAM_tt_navy_demand_max: "  Maximum consumption: §Y[JAM_sl_navy_ammo_demand_max]§!/day"
     
     JAM_tt_air_header:     "§HAir§!"
-    JAM_tt_air_demand_now: "  Current consumption: §Y[JAM_sl_air_ammo_demand_now]§!/day"
+    JAM_tt_air_demand_now: "  Current consumption: §Y[JAM_sl_air_ammo_demand_now]§!/day [JAM_sl_air_shortage_text]"
     JAM_tt_air_demand_max: "  Maximum consumption: §Y[JAM_sl_air_ammo_demand_max]§!/day"
+    
+    JAM_tt_army_shortage_received: "§R(received: [JAM_sl_army_received]/day)§!"
+    JAM_tt_navy_shortage_received: "§R(received: [JAM_sl_army_received]/day)§!"
+    JAM_tt_air_shortage_received:  "§R(received: [JAM_sl_army_received]/day)§!"
     
     JAM_tt_stockpile_cap:  "§HAmmunition Stockpile Capacity: [JAM_sl_ammo_capacity]§!"
     JAM_tt_stockpile_base: "Base: §Y250.0K§!" # Keep up to date with @JAM_base_ammo_capacity in JAM_calculations.txt
@@ -123,3 +127,12 @@ l_english:
     
     JAM_txt_ammo_cap_infra_K: "[?JAM_ammo_cap_infra|1]K"
     JAM_txt_ammo_cap_infra_M: "[?JAM_ammo_cap_infra_M|1]M"
+    
+    JAM_txt_army_received_K: "[?JAM_army_received|1]K"
+    JAM_txt_army_received_M: "[?JAM_army_received_M|1]M"
+    
+    JAM_txt_navy_received_K: "[?JAM_navy_received|1]K"
+    JAM_txt_navy_received_M: "[?JAM_navy_received_M|1]M"
+    
+    JAM_txt_air_received_K: "[?JAM_air_received|1]K"
+    JAM_txt_air_received_M: "[?JAM_air_received_M|1]M"
