@@ -43,8 +43,8 @@ l_english:
     JAM_tt_air_demand_max: "  Maximum consumption: §Y[JAM_sl_air_ammo_demand_max]§!/day"
     
     JAM_tt_army_shortage_received: "§R(received: [JAM_sl_army_received]/day)§!"
-    JAM_tt_navy_shortage_received: "§R(received: [JAM_sl_army_received]/day)§!"
-    JAM_tt_air_shortage_received:  "§R(received: [JAM_sl_army_received]/day)§!"
+    JAM_tt_navy_shortage_received: "§R(received: [JAM_sl_navy_received]/day)§!"
+    JAM_tt_air_shortage_received:  "§R(received: [JAM_sl_air_received]/day)§!"
     
     JAM_tt_stockpile_cap:  "§HAmmunition Stockpile Capacity: [JAM_sl_ammo_capacity]§!"
     JAM_tt_stockpile_base: "Base: §Y250.0K§!" # Keep up to date with @JAM_base_ammo_capacity in JAM_calculations.txt
