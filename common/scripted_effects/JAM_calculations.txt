@@ -1155,6 +1155,10 @@ JAM_se_calculate_ammo_produced = {
     add_to_temp_variable = {
         output_mult = modifier@industrial_capacity_factory
     }
+    clamp_temp_variable = {
+        var = output_mult
+        min = 0
+    }
     multiply_temp_variable = {
         idle_mils = output_mult
     }
@@ -1277,7 +1281,7 @@ JAM_se_calculate_derivative_values = {
     set_variable    = { JAM_ammo_cap_infra_M = JAM_ammo_cap_infra }
     divide_variable = { JAM_ammo_cap_infra_M = 1000 }
     
-    # Net maths
+    # Net change
     set_temp_variable = {
         ammo_net = JAM_ammo_produced
     }
@@ -1294,6 +1298,7 @@ JAM_se_calculate_derivative_values = {
         JAM_ammo_net_change = ammo_net
     }
     
+    # Days remaining
     if = {
         limit = {
             NOT = {
@@ -1321,6 +1326,9 @@ JAM_se_calculate_derivative_values = {
         }
         subtract_from_temp_variable  = {
             remaining_ammo = JAM_ammo_stockpile
+        }
+        subtract_from_temp_variable  = {
+            remaining_ammo = ammo_net
         }
         set_variable = {
             JAM_ammo_days_remaining = remaining_ammo
@@ -1353,6 +1361,9 @@ JAM_se_calculate_derivative_values = {
         
         set_temp_variable  = {
             remaining_ammo = JAM_ammo_stockpile
+        }
+        add_to_temp_variable = {
+            remaining_ammo   = ammo_net
         }
         set_variable = {
             JAM_ammo_days_remaining = remaining_ammo

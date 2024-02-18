@@ -303,7 +303,15 @@ JAM_se_handle_gui_vars = {
                     NOT = {
                         check_variable = { JAM_ammo_net_change = 0 }
                     }
-                    check_variable = { JAM_ammo_days_remaining = 0 }
+                    check_variable = { JAM_ammo_days_remaining < 1 }
+                }
+                AND = {
+                    check_variable = { JAM_ammo_is_accumulating = 1 }
+                    check_variable = { JAM_ammo_stockpile = JAM_ammo_capacity }
+                }
+                AND = {
+                    check_variable = { JAM_ammo_is_accumulating = 0 }
+                    check_variable = { JAM_ammo_stockpile = 0 }
                 }
             }
         }
@@ -330,22 +338,28 @@ JAM_se_handle_gui_vars = {
 
 # Handles day-to-day
 JAM_se_country_daily = {
-    JAM_se_calculate_all = yes
-    
-    JAM_se_handle_ammo_distribution = yes
-    JAM_se_handle_dyn_modifier = yes
-    
     add_to_variable = { JAM_ammo_stockpile = JAM_ammo_produced }
     clamp_variable  = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    
+    JAM_se_calculate_all = yes
+    JAM_se_handle_ammo_distribution = yes
+    JAM_se_handle_dyn_modifier = yes
+    
     set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
     divide_variable = { JAM_ammo_stockpile_M = 1000 }
     
     JAM_se_handle_gui_vars = yes
 }
 JAM_se_country_weekly = {
+    add_to_variable = { JAM_ammo_stockpile = JAM_ammo_produced }
+    clamp_variable  = {
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+    
     JAM_se_calculate_all = yes
     
     multiply_variable = { JAM_army_ammo_demand_now = 7 }
@@ -356,11 +370,6 @@ JAM_se_country_weekly = {
     JAM_se_handle_ammo_distribution = yes
     JAM_se_handle_dyn_modifier = yes
     
-    add_to_variable = { JAM_ammo_stockpile = JAM_ammo_produced }
-    clamp_variable  = {
-        var = JAM_ammo_stockpile
-        max = JAM_ammo_capacity
-    }
     set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
     divide_variable = { JAM_ammo_stockpile_M = 1000 }
     
@@ -375,10 +384,11 @@ JAM_se_init_vars = {
     set_variable = { JAM_navy_priority  = 2 }
     set_variable = { JAM_air_priority   = 2 }
     
-    JAM_se_calculate_all = yes
-    
     # Starting ammo
     # 1 years' worth (or 4 years' worth in 1939 start)
+    JAM_se_calculate_ammo_capacity = yes
+    JAM_se_calculate_ammo_produced = yes
+    
     set_temp_variable = { produced_ammo = JAM_ammo_produced }
     
     set_temp_variable           = { years_mult    = global.year }
@@ -446,6 +456,9 @@ JAM_se_init_vars = {
         var = JAM_ammo_stockpile
         max = JAM_ammo_capacity
     }
+    
+    JAM_se_calculate_all = yes
+    
     set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
     divide_variable = { JAM_ammo_stockpile_M = 1000 }
     

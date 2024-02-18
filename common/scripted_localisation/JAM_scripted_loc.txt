@@ -24,16 +24,20 @@ defined_text = {
     
     text = { # Full
         trigger = {
-            check_variable = { JAM_ammo_days_remaining < 1 }
-            check_variable = { JAM_ammo_stockpile > 0 }
+            check_variable = { JAM_ammo_is_accumulating = 1 }
+            OR = {
+                check_variable = { JAM_ammo_days_remaining < 1 }
+                check_variable = { JAM_ammo_stockpile = JAM_ammo_capacity }
+            }
         }
         localization_key = JAM_txt_full
     }
     text = { # Empty
         trigger = {
-            check_variable = { JAM_ammo_days_remaining < 1 }
-            NOT = {
-                check_variable = { JAM_ammo_stockpile > 0 }
+            check_variable = { JAM_ammo_is_accumulating = 0 }
+            OR = {
+                check_variable = { JAM_ammo_days_remaining < 1 }
+                check_variable = { JAM_ammo_stockpile = 0 }
             }
         }
         localization_key = JAM_txt_empty
@@ -502,11 +506,25 @@ defined_text = {
 defined_text = {
     name = JAM_sl_time_remaining_body
     
-    text = { # Show nothing if full or empty
+    text = { # Full
         trigger = {
-            check_variable = { JAM_ammo_days_remaining < 1 }
+            check_variable = { JAM_ammo_is_accumulating = 1 }
+            OR = {
+                check_variable = { JAM_ammo_days_remaining < 1 }
+                check_variable = { JAM_ammo_stockpile = JAM_ammo_capacity }
+            }
         }
-        localization_key = JAM_txt_BLANK
+        localization_key = JAM_tt_time_full
+    }
+    text = { # Empty
+        trigger = {
+            check_variable = { JAM_ammo_is_accumulating = 0 }
+            OR = {
+                check_variable = { JAM_ammo_days_remaining < 1 }
+                check_variable = { JAM_ammo_stockpile = 0 }
+            }
+        }
+        localization_key = JAM_tt_time_empty
     }
     text = {
         trigger = {

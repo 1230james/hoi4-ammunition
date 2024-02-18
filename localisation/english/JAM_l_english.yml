@@ -50,6 +50,7 @@ l_english:
     JAM_tt_stockpile_base: "Base: §Y250.0K§!" # Keep up to date with @JAM_base_ammo_capacity in JAM_calculations.txt
     JAM_tt_stockpile_infr: "In states: §Y[JAM_sl_ammo_cap_infra]§!"
     
+    JAM_tt_time_full:       "§GStockpile is full.§!"
     JAM_tt_time_p_gt_5_yrs: "§G>5.0 years§!"
     JAM_tt_time_p_years:    "§G[?JAM_ammo_years_remaining|1] years§!"
     JAM_tt_time_p_months:   "§G[?JAM_ammo_months_remaining|1] months§!"
@@ -58,6 +59,7 @@ l_english:
     JAM_tt_time_n_months:   "§R[?JAM_ammo_months_remaining|1] months§!"
     JAM_tt_time_n_years:    "§R[?JAM_ammo_years_remaining|1] years§!"
     JAM_tt_time_n_gt_5_yrs: "§R>5.0 years§!"
+    JAM_tt_time_empty:      "§RStockpile is empty.§!"
     
     JAM_tt_time_inc: "With current production rates, you will fill your ammunition capacity in [JAM_sl_time_remaining_duration]"
     JAM_tt_time_dec: "With current consumption rates, you will be out of ammunition in [JAM_sl_time_remaining_duration]"
