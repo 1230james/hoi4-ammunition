@@ -837,12 +837,14 @@ JAM_se_calculate_navy_ammo_demand = {
             set_temp_variable = {
                 temp_demand = num_ships
             }
+            
+            save_event_target_as = country # make it scope-/context-agnostic
             every_state = { # Subtracts total amount of docked ships from `temp_demand`
                 limit = {
                     naval_base > 0
                 }
                 save_event_target_as = state_target
-                ROOT = {
+                event_target:country = {
                     if = {
                         limit = {
                             ships_in_state_ports = {

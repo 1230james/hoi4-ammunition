@@ -4,6 +4,7 @@ on_actions = {
         effect = {
             every_country = {
                 JAM_se_init_vars = yes
+                JAM_se_init_onstart_ammo = yes
                 
                 if = {
                     limit = {
@@ -43,6 +44,7 @@ on_actions = {
         effect = {
             ROOT = {
                 JAM_se_init_vars = yes
+                JAM_se_init_midgame_ammo = yes
             }
         }
     }
@@ -50,6 +52,7 @@ on_actions = {
         effect = {
             ROOT = {
                 JAM_se_init_vars = yes
+                JAM_se_init_midgame_ammo = yes
             }
         }
     }
@@ -57,6 +60,85 @@ on_actions = {
         effect = {
             ROOT = {
                 JAM_se_init_vars = yes
+                JAM_se_init_midgame_ammo = yes
+            }
+        }
+    }
+    
+    # Capitulations
+    on_capitulation = {
+        effect = {
+            set_temp_variable = { ammo_transferred = 0 }
+            ROOT = {
+                set_temp_variable      = { ammo_transferred   = JAM_ammo_stockpile }
+                multiply_temp_variable = { ammo_transferred   = 0.5 }
+                subtract_from_variable = { JAM_ammo_stockpile = ammo_transferred }
+            }
+            FROM = {
+                add_to_variable = { JAM_ammo_stockpile = ammo_transferred }
+                clamp_variable  = {
+                    var = JAM_ammo_stockpile
+                    max = JAM_ammo_capacity
+                }
+                JAM_se_country_refresh = yes
+            }
+        }
+    }
+    
+    # Annexations
+    on_subject_annexed = {
+        effect = {
+            set_temp_variable = { ammo_transferred = 0 }
+            ROOT = {
+                set_temp_variable = { ammo_transferred = JAM_ammo_stockpile }
+            }
+            FROM = {
+                add_to_variable = { JAM_ammo_stockpile = ammo_transferred }
+                clamp_variable  = {
+                    var = JAM_ammo_stockpile
+                    max = JAM_ammo_capacity
+                }
+                JAM_se_country_refresh = yes
+            }
+        }
+    }
+    
+    # Civil wars
+    on_declare_war = {
+        effect = {
+            if = {
+                limit = {
+                    FROM = { civilwar_target = ROOT }
+                    ROOT = { civilwar_target = FROM }
+                }
+                
+                if = {
+                    limit = {
+                        FROM = {
+                            NOT = {
+                                has_variable = JAM_army_priority
+                            }
+                        }
+                    }
+                    FROM = {
+                        save_event_target_as = dest
+                        JAM_se_init_vars     = yes
+                    }
+                    ROOT = {
+                        save_event_target_as = src
+                    }
+                }
+                else = {
+                    FROM = {
+                        save_event_target_as = src
+                    }
+                    ROOT = {
+                        save_event_target_as = dest
+                        JAM_se_init_vars     = yes
+                    }
+                }
+                
+                JAM_se_civil_war_ammo_split = yes
             }
         }
     }
@@ -72,6 +154,7 @@ on_actions = {
                     }
                 }
                 JAM_se_init_vars = yes
+                JAM_se_init_midgame_ammo = yes
             }
             
             # Fire weekly for AI minors for performance savings

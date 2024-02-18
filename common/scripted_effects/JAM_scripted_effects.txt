@@ -376,14 +376,33 @@ JAM_se_country_weekly = {
     JAM_se_handle_gui_vars = yes
 }
 
+# Completely refreshes all values to update GUI without running game-affecting logic
+JAM_se_country_refresh = {
+    JAM_se_calculate_all = yes
+    
+    clamp_variable = { # clamp stockpile after capacity recalc
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+    set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
+    divide_variable = { JAM_ammo_stockpile_M = 1000 }
+    
+    JAM_se_handle_gui_vars = yes
+}
+
 # Initializes values for the current country
 JAM_se_init_vars = {
-    # Init vars
     set_variable = { JAM_ammo_stockpile = 0 }
     set_variable = { JAM_army_priority  = 2 }
     set_variable = { JAM_navy_priority  = 2 }
     set_variable = { JAM_air_priority   = 2 }
     
+    JAM_se_calculate_all   = yes
+    JAM_se_handle_gui_vars = yes
+}
+
+# Set starting quantities for current country at game start
+JAM_se_init_onstart_ammo = {
     # Starting ammo
     # 1 years' worth (or 4 years' worth in 1939 start)
     JAM_se_calculate_ammo_capacity = yes
@@ -464,6 +483,95 @@ JAM_se_init_vars = {
     
     # Update GUI
     JAM_se_handle_gui_vars = yes
+}
+
+# Set starting quantities for current country - intended for use mid-game
+JAM_se_init_midgame_ammo = {
+    # 1 years' worth or 25% of capacity, whichever is greater
+    JAM_se_calculate_ammo_capacity = yes
+    JAM_se_calculate_ammo_produced = yes
+    
+    set_temp_variable = { one_yr_ammo = JAM_ammo_produced }
+    multiply_temp_variable = { one_yr_ammo = 365 }
+    
+    set_temp_variable = { quarter_ammo = JAM_ammo_capacity }
+    multiply_temp_variable = { quarter_ammo = 0.25 }
+    
+    if = {
+        limit = {
+            check_variable = { one_yr_ammo > quarter_ammo }
+        }
+        set_temp_variable = { starting_ammo = one_yr_ammo }
+    }
+    else = {
+        set_temp_variable = { starting_ammo = quarter_ammo }
+    }
+    
+    set_variable   = { JAM_ammo_stockpile = starting_ammo }
+    clamp_variable = {
+        var = JAM_ammo_stockpile
+        max = JAM_ammo_capacity
+    }
+    
+    JAM_se_calculate_all = yes
+    
+    set_variable    = { JAM_ammo_stockpile_M = JAM_ammo_stockpile }
+    divide_variable = { JAM_ammo_stockpile_M = 1000 }
+    
+    # Update GUI
+    JAM_se_handle_gui_vars = yes
+}
+
+# Split ammo during civil wars
+# Set the following event targets:
+#     src  - Country to deduct ammo from
+#     dest - Country receiving the ammo
+JAM_se_civil_war_ammo_split = {
+    # Determine ammo split proportions based on proportions of states on both sides
+    set_temp_variable = { ammo_frac    = 0 }
+    set_temp_variable = { total_states = 0 }
+    
+    event_target:dest = {
+        every_controlled_state = {
+            add_to_temp_variable = { ammo_frac    = 1 }
+            add_to_temp_variable = { total_states = 1 }
+        }
+    }
+    event_target:src = {
+        every_controlled_state = {
+            add_to_temp_variable = { total_states = 1 }
+        }
+    }
+    
+    divide_temp_variable = { ammo_frac = total_states }
+    
+    # Determine qty. of ammo to transfer + transfer it
+    set_temp_variable = { ammo_transferred = 0 }
+    event_target:src  = {
+        set_temp_variable      = { ammo_transferred = JAM_ammo_stockpile }
+        multiply_temp_variable = { ammo_transferred = ammo_frac }
+        
+        subtract_from_variable = { JAM_ammo_stockpile = ammo_transferred }
+    }
+    event_target:dest  = {
+        set_variable   = { JAM_ammo_stockpile = ammo_transferred }
+        clamp_variable = {
+            var = JAM_ammo_stockpile
+            max = JAM_ammo_capacity
+        }
+    }
+    
+    # Update GUIs
+    event_target:src = {
+        JAM_se_calculate_all   = yes
+        JAM_se_handle_gui_vars = yes
+        JAM_se_country_refresh = yes
+    }
+    event_target:dest = {
+        JAM_se_calculate_all   = yes
+        JAM_se_handle_gui_vars = yes
+        JAM_se_country_refresh = yes
+    }
 }
 
 # Debug
