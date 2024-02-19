@@ -1,0 +1,20 @@
+JAM_gr_inf_ammo_tech_mult = {
+    name  = "JAM_inf_ammo_tech_mult"
+    group = "RULE_GROUP_GAMEPLAY"
+    icon  = "GFX_JAM_ammo_small"
+    
+    option = {
+        name = enable
+        text = "JAM_gr_yes_inf_ammo_tech_mult_name"
+        desc = "JAM_gr_yes_inf_ammo_tech_mult_desc"
+        
+        allow_achievements = yes # actually no because this whole mod isnt achievements-compatible but we want UI consistency
+    }
+    option = {
+        name = disable
+        text = "JAM_gr_no_inf_ammo_tech_mult_name"
+        desc = "JAM_gr_no_inf_ammo_tech_mult_desc"
+        
+        allow_achievements = yes
+    }
+}

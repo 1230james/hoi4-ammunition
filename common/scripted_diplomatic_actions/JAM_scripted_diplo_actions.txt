@@ -1,4 +1,4 @@
-@JAM_ammo_send_qty = 100
+@JAM_ammo_send_qty = 250
 
 scripted_diplomatic_actions = {
 
@@ -171,7 +171,7 @@ scripted_diplomatic_actions = {
                 }
 			}
             
-            # Little extra priority to allied players
+            # Little extra priority to allied players in need
             modifier = {
                 add = 250
                 
@@ -187,6 +187,9 @@ scripted_diplomatic_actions = {
                             has_war_with = PREV
                         }
                     }
+                    
+                    check_variable = { JAM_ammo_is_accumulating = 0 }
+                    check_variable = { JAM_ammo_years_remaining < 1 }
                 }
             }
             

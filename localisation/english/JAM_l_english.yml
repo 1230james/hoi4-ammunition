@@ -10,6 +10,14 @@ l_english:
     
     JAM_om_sent_ammo: "Received Ammunition"
     
+    # Game Rules
+    JAM_inf_ammo_tech_mult: "§YJAM§! | Tech Raises Infantry Ammo Needs"
+    
+    JAM_gr_yes_inf_ammo_tech_mult_name: "Enabled"
+    JAM_gr_yes_inf_ammo_tech_mult_desc: "The base ammunition consumption of §YInfantry§!, §YCavalry§!, §YMotorized§!, and §YMechanized§! battalions will §Oincrease§! when unlocking certain $CAREER_PROFILE_MILITARY_PRODUCTION_OTHER_LABEL$ technologies."
+    JAM_gr_no_inf_ammo_tech_mult_name:  "Disabled"
+    JAM_gr_no_inf_ammo_tech_mult_desc:  "The base ammunition consumption of §YInfantry§!, §YCavalry§!, §YMotorized§!, and §YMechanized§! battalions will §Oremain constant§! throughout the game."
+    
     # Topbar
     JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
     
@@ -26,8 +34,8 @@ l_english:
     JAM_SEND_AMMO_TITLE: "Send Ammunition"
     JAM_SEND_AMMO_ACTION_DESC: "We can support other countries who are at war by sending them ammunition."
     
-    JAM_sda_send_ammo_send_desc:    "We will send §Y100K§! units of §YAmmunition§! to §Y[THIS.GetNameDef]§! assist them in their war effort."
-    JAM_sda_send_ammo_receive_desc: "[ROOT.GetNameDefCap] wants to provide us with §Y100K§! units of §YAmmunition§!."
+    JAM_sda_send_ammo_send_desc:    "We will send §Y250K§! units of §YAmmunition§! to §Y[THIS.GetNameDef]§! assist them in their war effort."
+    JAM_sda_send_ammo_receive_desc: "[ROOT.GetNameDefCap] wants to provide us with §Y250K§! units of §YAmmunition§!."
     
     JAM_sda_send_ammo_accept_title: "Send Ammunition Accepted"
     JAM_sda_send_ammo_accept_desc:  "\n§Y[THIS.GetNameDefCap]§! has §Gaccepted§! our ammunition.\n\nOur material support will help their efforts."
@@ -35,7 +43,7 @@ l_english:
     JAM_sda_send_ammo_reject_title: "Send Ammunition Refused"
     JAM_sda_send_ammo_reject_desc:  "\n§Y[THIS.GetNameDefCap]§! has §Rrefused§! our ammunition!\n\nThey will not have our material support."
     
-    JAM_sda_send_ammo_tt_has_enough: "Has more than §Y100K§! units of Ammunition"
+    JAM_sda_send_ammo_tt_has_enough: "Has more than §Y250K§! units of Ammunition"
     
     JAM_sda_send_ammo_base: "The help is welcome"
     JAM_sda_send_ammo_full: "[JAM_sl_sda_send_ammo_full]"

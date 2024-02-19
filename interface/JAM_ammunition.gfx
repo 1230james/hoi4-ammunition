@@ -4,6 +4,11 @@ spriteTypes = {
         name = "GFX_JAM_ammunition"
         texturefile = "gfx/interface/ammo_medium.dds"
     }
+    
+    spriteType = {
+        name = "GFX_JAM_ammo_small"
+        texturefile = "gfx/interface/ammo_small.dds"
+    }
 
     spriteType = {
         name = "GFX_JAM_ammo_icon"
