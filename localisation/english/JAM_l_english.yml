@@ -10,6 +10,18 @@ l_english:
     
     JAM_om_sent_ammo: "Received Ammunition"
     
+    # Topbar
+    JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
+    
+    JAM_txt_full:       "§GFull§!"
+    JAM_txt_p_gt_5_yrs: "§G>5.0 y§!"
+    JAM_txt_p_years:    "§G[?JAM_ammo_years_remaining|1] y§!"
+    JAM_txt_p_days:     "§G[?JAM_ammo_days_remaining|0] d§!"
+    JAM_txt_n_days:     "§R[?JAM_ammo_days_remaining|0] d§!"
+    JAM_txt_n_years:    "§R[?JAM_ammo_years_remaining|1] y§!"
+    JAM_txt_n_gt_5_yrs: "§R>5.0 y§!"
+    JAM_txt_empty:      "§REmpty§!"
+    
     # Diplo actions
     JAM_SEND_AMMO_TITLE: "Send Ammunition"
     JAM_SEND_AMMO_ACTION_DESC: "We can support other countries who are at war by sending them ammunition."
@@ -31,17 +43,37 @@ l_english:
     JAM_sda_send_ammo_full_p: "Has space for additional ammunition"
     JAM_sda_send_ammo_full_n: "Has no extra ammunition storage space"
     
-    # Topbar
-    JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
+    # Decisions
+    JAM_dccat_ammo_priorities: "Ammunition Prioritization"
     
-    JAM_txt_full:       "§GFull§!"
-    JAM_txt_p_gt_5_yrs: "§G>5.0 y§!"
-    JAM_txt_p_years:    "§G[?JAM_ammo_years_remaining|1] y§!"
-    JAM_txt_p_days:     "§G[?JAM_ammo_days_remaining|0] d§!"
-    JAM_txt_n_days:     "§R[?JAM_ammo_days_remaining|0] d§!"
-    JAM_txt_n_years:    "§R[?JAM_ammo_years_remaining|1] y§!"
-    JAM_txt_n_gt_5_yrs: "§R>5.0 y§!"
-    JAM_txt_empty:      "§REmpty§!"
+    JAM_dc_show_ammo_decisions: "Show Ammunition Prioritization Decisions"
+    JAM_dc_hide_ammo_decisions: "Hide Ammunition Prioritization Decisions"
+    
+    JAM_txt_high_prio: "§GHigh§!"
+    JAM_txt_med_prio:  "§YMedium§!"
+    JAM_txt_low_prio:  "§RLow§!"
+    
+    JAM_txt_army_colored: "§7Army§!"
+    JAM_txt_navy_colored: "§4Navy§!"
+    JAM_txt_air_colored:  "§9Air§!"
+    
+    JAM_dc_set_army_ammo_high: "$JAM_txt_army_colored$ §g— §! $JAM_txt_high_prio$ Ammo Priority"
+    JAM_dc_set_army_ammo_med:  "$JAM_txt_army_colored$ §g— §! $JAM_txt_med_prio$ Ammo Priority"
+    JAM_dc_set_army_ammo_low:  "$JAM_txt_army_colored$ §g— §! $JAM_txt_low_prio$ Ammo Priority"
+    
+    JAM_dc_set_navy_ammo_high: "$JAM_txt_navy_colored$ §g— §! $JAM_txt_high_prio$ Ammo Priority"
+    JAM_dc_set_navy_ammo_med:  "$JAM_txt_navy_colored$ §g— §! $JAM_txt_med_prio$ Ammo Priority"
+    JAM_dc_set_navy_ammo_low:  "$JAM_txt_navy_colored$ §g— §! $JAM_txt_low_prio$ Ammo Priority"
+    
+    JAM_dc_set_air_ammo_high: "$JAM_txt_air_colored$ §g— §! $JAM_txt_high_prio$ Ammo Priority"
+    JAM_dc_set_air_ammo_med:  "$JAM_txt_air_colored$ §g— §! $JAM_txt_med_prio$ Ammo Priority"
+    JAM_dc_set_air_ammo_low:  "$JAM_txt_air_colored$ §g— §! $JAM_txt_low_prio$ Ammo Priority"
+    
+    JAM_dccat_army_header: "$JAM_txt_army_colored$ §g— §! [JAM_sl_army_priority]"
+    JAM_dccat_navy_header: "$JAM_txt_navy_colored$ §g— §! [JAM_sl_navy_priority]"
+    JAM_dccat_air_header:  "$JAM_txt_air_colored$ §g— §! [JAM_sl_air_priority]"
+    
+    JAM_dccat_ammo_priorities_desc: "$JAM_dccat_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$\n\n$JAM_dccat_navy_header$\n$JAM_tt_navy_demand_now$\n$JAM_tt_navy_demand_max$\n\n$JAM_dccat_air_header$\n$JAM_tt_air_demand_now$\n$JAM_tt_air_demand_max$"
     
     # Ammo Tooltip
     JAM_tt_header: "§HAmmunition§!"

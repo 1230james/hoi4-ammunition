@@ -710,3 +710,71 @@ defined_text = {
         localization_key = JAM_sda_send_ammo_full_p
     }
 }
+
+defined_text = {
+    name = JAM_sl_army_priority
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_army_priority = 3 }
+        }
+        localization_key = JAM_txt_high_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_army_priority = 2 }
+        }
+        localization_key = JAM_txt_med_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_army_priority = 1 }
+        }
+        localization_key = JAM_txt_low_prio
+    }
+}
+defined_text = {
+    name = JAM_sl_navy_priority
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_navy_priority = 3 }
+        }
+        localization_key = JAM_txt_high_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_navy_priority = 2 }
+        }
+        localization_key = JAM_txt_med_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_navy_priority = 1 }
+        }
+        localization_key = JAM_txt_low_prio
+    }
+}
+defined_text = {
+    name = JAM_sl_air_priority
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_air_priority = 3 }
+        }
+        localization_key = JAM_txt_high_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_air_priority = 2 }
+        }
+        localization_key = JAM_txt_med_prio
+    }
+    text = {
+        trigger = {
+            check_variable = { JAM_air_priority = 1 }
+        }
+        localization_key = JAM_txt_low_prio
+    }
+}
+
