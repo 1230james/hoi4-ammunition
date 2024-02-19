@@ -692,3 +692,21 @@ defined_text = {
         localization_key = JAM_txt_BLANK
     }
 }
+
+defined_text = {
+    name = JAM_sl_sda_send_ammo_full
+    
+    text = {
+        trigger = {
+            check_variable = { JAM_ammo_is_accumulating = 1 }
+            check_variable = { JAM_ammo_days_remaining  < 8 }
+        }
+        localization_key = JAM_sda_send_ammo_full_n
+    }
+    text = {
+        trigger = {
+            always = yes
+        }
+        localization_key = JAM_sda_send_ammo_full_p
+    }
+}

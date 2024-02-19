@@ -1,9 +1,35 @@
 ﻿# TODO: Currently receiving numbers in current consumption lines if experiencing shortage
 l_english:
+    JAM_txt_BLANK: ""
+    JAM_txt_JAM_feature: "§gThis is a feature of §3James's Ammunition Mod§!.§!"
+    
     # Modifiers
     JAM_dyn_mod_army_ammo_shortage: "Army Ammunition Shortage"
     JAM_dyn_mod_navy_ammo_shortage: "Navy Ammunition Shortage"
     JAM_dyn_mod_air_ammo_shortage:  "Air Ammunition Shortage"
+    
+    JAM_om_sent_ammo: "Received Ammunition"
+    
+    # Diplo actions
+    JAM_SEND_AMMO_TITLE: "Send Ammunition"
+    JAM_SEND_AMMO_ACTION_DESC: "We can support other countries who are at war by sending them ammunition."
+    
+    JAM_sda_send_ammo_send_desc:    "We will send §Y100K§! units of §YAmmunition§! to §Y[THIS.GetNameDef]§! assist them in their war effort."
+    JAM_sda_send_ammo_receive_desc: "[ROOT.GetNameDefCap] wants to provide us with §Y100K§! units of §YAmmunition§!."
+    
+    JAM_sda_send_ammo_accept_title: "Send Ammunition Accepted"
+    JAM_sda_send_ammo_accept_desc:  "\n§Y[THIS.GetNameDefCap]§! has §Gaccepted§! our ammunition.\n\nOur material support will help their efforts."
+    
+    JAM_sda_send_ammo_reject_title: "Send Ammunition Refused"
+    JAM_sda_send_ammo_reject_desc:  "\n§Y[THIS.GetNameDefCap]§! has §Rrefused§! our ammunition!\n\nThey will not have our material support."
+    
+    JAM_sda_send_ammo_tt_has_enough: "Has more than §Y100K§! units of Ammunition"
+    
+    JAM_sda_send_ammo_base: "The help is welcome"
+    JAM_sda_send_ammo_full: "[JAM_sl_sda_send_ammo_full]"
+    
+    JAM_sda_send_ammo_full_p: "Has space for additional ammunition"
+    JAM_sda_send_ammo_full_n: "Has no extra ammunition storage space"
     
     # Topbar
     JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
@@ -17,9 +43,8 @@ l_english:
     JAM_txt_n_gt_5_yrs: "§R>5.0 y§!"
     JAM_txt_empty:      "§REmpty§!"
     
-    # Tooltip
+    # Ammo Tooltip
     JAM_tt_header: "§HAmmunition§!"
-    JAM_txt_BLANK: ""
     
     JAM_tt_current_ammo:   "Current Ammunition: §Y[JAM_sl_ammo_stockpile]§!"
     JAM_tt_gain_breakdown: "Daily Gain: §Y[JAM_sl_ammo_produced]§!\n  From busy £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_busy]§!\n  From idle £mil_factory  $arms_factory_plural$: §Y[JAM_sl_ammo_gain_idle]§!"
@@ -72,7 +97,7 @@ l_english:
     JAM_tt_ammo_stats_raw: "$JAM_tt_header$\n\n$JAM_tt_current_ammo$\n$JAM_tt_gain_breakdown$\n$JAM_tt_capacity$\n\n$JAM_tt_demand_now$\n$JAM_tt_demand_max$\n\n$JAM_tt_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$[JAM_sl_army_penalty_text]\n\n$JAM_tt_air_header$\n$JAM_tt_air_demand_now$\n$JAM_tt_air_demand_max$[JAM_sl_air_penalty_text]\n\n$JAM_tt_navy_header$\n$JAM_tt_navy_demand_now$\n$JAM_tt_navy_demand_max$[JAM_sl_navy_penalty_text]\n\n$JAM_tt_stockpile_cap$\n$JAM_tt_stockpile_base$\n$JAM_tt_stockpile_infr$\n\n[JAM_sl_time_remaining_body]"
     
     JAM_tt_ammo_desc:     "[JAM_sl_tt_desc_bypass]"
-    JAM_tt_ammo_desc_raw: "§YAmmunition§! is produced by your country's $arms_factory_plural$. All $arms_factory_plural$ contribute to the production of §YAmmunition§!, but ones that are not assigned to a production line will produce twice as much. Each country has a maximum capacity for §YAmmunition§! which can be increased by upgrading §Y$infrastructure$§! in the states it owns or controls.\n\n§YAmmunition§! is used by the army when in combat. Attacking will consume extra §YAmmunition§!. Army units without a $rank3$ will passively lose §YAmmunition§!. During times of war, §YAmmunition§! is also consumed by deployed air wings and naval units that are not docked."
+    JAM_tt_ammo_desc_raw: "§YAmmunition§! is produced by your country's $arms_factory_plural$. All $arms_factory_plural$ contribute to the production of §YAmmunition§!, but ones that are not assigned to a production line will produce extra.\n\nEach country has a maximum capacity for §YAmmunition§! which can be increased by upgrading §Y$infrastructure$§! in the states it owns or controls.\n\n§YAmmunition§! is used by the army when in combat. Attacking will consume extra §YAmmunition§!. Army units without a $rank3$ will passively lose §YAmmunition§!.\n\nDuring times of war, §YAmmunition§! is also consumed by deployed air wings and naval units that are not docked.\n\n$JAM_txt_JAM_feature$"
     
     # Numbers
     # I miss Vic3 loc functions :(
@@ -123,9 +148,6 @@ l_english:
     
     JAM_txt_air_ammo_demand_max_K: "[?JAM_air_ammo_demand_max|1]K"
     JAM_txt_air_ammo_demand_max_M: "[?JAM_air_ammo_demand_max_M|1]M"
-    
-    JAM_txt_ammo_capacity_K: "[?JAM_ammo_capacity|1]K"
-    JAM_txt_ammo_capacity_M: "[?JAM_ammo_capacity_M|1]M"
     
     JAM_txt_ammo_cap_infra_K: "[?JAM_ammo_cap_infra|1]K"
     JAM_txt_ammo_cap_infra_M: "[?JAM_ammo_cap_infra_M|1]M"

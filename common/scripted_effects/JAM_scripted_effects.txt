@@ -576,5 +576,5 @@ JAM_se_civil_war_ammo_split = {
 
 # Debug
 JAM_se_debug = {
-    # NOP
+    clr_country_flag = JAM_diplo_cooldown
 }

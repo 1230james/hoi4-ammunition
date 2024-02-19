@@ -1,0 +1,250 @@
+@JAM_ammo_send_qty = 100
+
+scripted_diplomatic_actions = {
+
+	JAM_send_ammo = { # will be used in most localizations
+        
+        # ROOT - initiator
+        # THIS - target country
+		allowed = { # I have no idea what that actually means or what this does after poking around
+            always = yes # vanilla file says "if action is valid" 
+		}
+        
+		visible  = {
+			always = yes
+		}
+        
+		selectable = { #if action is selectable on gui
+            threat > ROOT.modifier@lend_lease_tension
+            THIS = {
+                has_war = yes
+                NOT = { # Apparently lend lease only checks if they're directly at war? lmao wtf
+                    has_war_with = ROOT
+                }
+            }
+            ROOT = {
+                custom_trigger_tooltip = {
+                    tooltip = JAM_sda_send_ammo_tt_has_enough
+                    check_variable = {
+                        var     = JAM_ammo_stockpile
+                        value   = @JAM_ammo_send_qty
+                        compare = greater_than_or_equals
+                    }
+                }
+            }
+		}
+
+		requires_acceptance = yes # if true the action will require acceptance of target country
+
+		show_acceptance_on_action_button = yes # set to no if acceptance shouldn't be displayed on the action button
+
+		icon = 9 # icon frame to use in notification
+        
+        # ROOT - Sender
+        # THIS - Receiver
+        # runs when the action is sent
+        on_sent_effect = {
+            ROOT = {
+                subtract_from_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
+                JAM_se_country_refresh = yes
+            }
+        }
+        
+        # runs when the action is properly sent and rejected
+        reject_effect = {
+            ROOT = {
+                add_to_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
+                JAM_se_country_refresh = yes
+            }
+		}
+        
+		# runs when the action is properly sent and accepted
+		complete_effect = {
+            THIS = {
+                add_to_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
+                JAM_se_country_refresh = yes
+                
+                if = {
+                    limit = {
+                        has_opinion_modifier = JAM_om_sent_ammo
+                    }
+                    remove_opinion_modifier = {
+                        target   = ROOT
+                        modifier = JAM_om_sent_ammo
+                    }
+                }
+                add_opinion_modifier = {
+                    target   = ROOT
+                    modifier = JAM_om_sent_ammo
+                }
+            }
+		}
+
+		can_be_sent = { # send button will be disabled if no
+			always = yes
+		}
+        
+		send_description = JAM_sda_send_ammo_send_desc # if there is no scripted gui, this desc will be used in send yes/no pop up
+
+		receive_description = JAM_sda_send_ammo_receive_desc # if there is no scripted gui, this desc will be used in send yes/no pop up
+
+		accept_title = JAM_sda_send_ammo_accept_title #can be overridden to customize accepted/rejected pop ups for the sender
+		accept_description = JAM_sda_send_ammo_accept_desc
+		reject_title = JAM_sda_send_ammo_reject_title
+		reject_description = JAM_sda_send_ammo_reject_desc
+		
+		# a list of ai_will_do entries that will be used to decide if AI should accept or reject a request
+		ai_acceptance = {
+			JAM_sda_send_ammo_base = { # name is used for loc
+				base = 100
+			}
+            
+            JAM_sda_send_ammo_full = {
+                base = 0
+                
+                modifier = {
+                    add  = 10
+                    THIS = {
+                        NOT = {
+                            AND = {
+                                check_variable = { JAM_ammo_is_accumulating = 1 }
+                                check_variable = { JAM_ammo_days_remaining  < 8 }
+                            }
+                        }
+                    }
+                }
+                modifier = {
+                    add  = -200
+                    THIS = {
+                        check_variable = { JAM_ammo_is_accumulating = 1 }
+                        check_variable = { JAM_ammo_days_remaining  < 8 }
+                    }
+                }
+			}
+		}
+
+		# ai_will_do to decide if AI should send this action or not
+		ai_desire = {
+			base = -1
+            
+            # Enemies
+			modifier = {
+				add = -9000
+                
+                ROOT = {
+                    OR = {
+                        has_war_with = PREV
+                        any_allied_country = {
+                            has_war_with = PREV.PREV
+                        }
+                        any_subject_country = {
+                            has_war_with = PREV.PREV
+                        }
+                        PREV = {
+                            is_enemy_ideology = yes
+                        }
+                    }
+                }
+			}
+            
+            # No ammo to give
+            # AI will try to keep:
+            #     - 1 day's worth of ammo on hand at all times
+            #     - At least 1 years' ammo on hand if they have a net loss of ammo at the moment
+            # AI will also avoid donating ammo if it will take at least 1 year to fill their reserves (they only want to
+            # donate ammo they can safely give away)
+            modifier = {
+				add = -1000
+                
+                ROOT = {
+                    OR = {
+                        check_variable = { JAM_ammo_stockpile < JAM_total_ammo_demand_max }
+                        AND = {
+                            check_variable = { JAM_ammo_is_accumulating = 0 }
+                            check_variable = { JAM_ammo_years_remaining < 1 }
+                        }
+                        AND = {
+                            check_variable = { JAM_ammo_is_accumulating = 1 }
+                            check_variable = { JAM_ammo_years_remaining > 1 }
+                        }
+                    }
+                }
+			}
+            
+            # Little extra priority to allied players
+            modifier = {
+                add = 250
+                
+                THIS = {
+                    is_ai = no
+                    OR = {
+                        is_ally_with = ROOT
+                        is_subject_of = ROOT
+                        is_guaranteed_by = ROOT
+                        is_in_faction_with = ROOT
+                        any_country = {
+                            is_enemy_ideology = yes
+                            has_war_with = PREV
+                        }
+                    }
+                }
+            }
+            
+            # Give to allies in need
+            modifier = {
+				add = 500
+                
+                THIS = {
+                    OR = {
+                        is_ally_with = ROOT
+                        is_subject_of = ROOT
+                        is_guaranteed_by = ROOT
+                        is_in_faction_with = ROOT
+                        any_country = {
+                            is_enemy_ideology = yes
+                            has_war_with = PREV
+                        }
+                    }
+                    
+                    OR = {
+                        check_variable = { JAM_ammo_stockpile < JAM_total_ammo_demand_max }
+                        AND = {
+                            check_variable = { JAM_ammo_is_accumulating = 0 }
+                            check_variable = { JAM_ammo_years_remaining < 1 }
+                        }
+                    }
+                }
+			}
+            
+            # Get rid of excess
+            modifier = {
+                add = 500
+                
+                ROOT = {
+                    check_variable = { JAM_ammo_is_accumulating = 1 }
+                    check_variable = { JAM_ammo_days_remaining  < 8 }
+                }
+                THIS = {
+                    OR = {
+                        is_ally_with = ROOT
+                        is_subject_of = ROOT
+                        is_guaranteed_by = ROOT
+                        is_in_faction_with = ROOT
+                        any_country = {
+                            is_enemy_ideology = yes
+                            has_war_with = PREV
+                        }
+                    }
+                    
+                    # Don't donate to someone who also has excess
+                    NOT = {
+                        AND = {
+                            check_variable = { JAM_ammo_is_accumulating = 1 }
+                            check_variable = { JAM_ammo_days_remaining  < 8 }
+                        }
+                    }
+                }
+            }
+		}
+	}
+}
