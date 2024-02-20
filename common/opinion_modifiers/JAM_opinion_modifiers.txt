@@ -1,0 +1,8 @@
+opinion_modifiers = {
+    
+    JAM_om_sent_ammo = {
+        value = 15
+        decay = 1
+    }
+    
+}

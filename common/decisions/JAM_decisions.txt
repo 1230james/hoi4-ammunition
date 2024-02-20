@@ -1,0 +1,269 @@
+JAM_dccat_ammo_priorities = {
+    
+    # Utility
+    JAM_dc_show_ammo_decisions = {
+        icon = generic_decision
+        
+        priority = 10
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            NOT = {
+                has_country_flag = JAM_show_ammo_decisions
+            }
+        }
+        
+        available = {
+            always = yes
+        }
+        
+        complete_effect = {
+            set_country_flag = JAM_show_ammo_decisions
+        }
+    }
+    
+    JAM_dc_hide_ammo_decisions = {
+        icon = generic_decision
+        
+        priority = 10
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            always = yes
+        }
+        
+        complete_effect = {
+            clr_country_flag = JAM_show_ammo_decisions
+        }
+    }
+    
+    # Army
+    JAM_dc_set_army_ammo_high = {
+        icon = SWE_set_army_budget
+        
+        priority = 9
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_army_priority = 3 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_army_priority = 3 }
+        }
+    }
+    
+    JAM_dc_set_army_ammo_med = {
+        icon = SWE_set_army_budget
+        
+        priority = 8
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_army_priority = 2 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_army_priority = 2 }
+        }
+    }
+    
+    JAM_dc_set_army_ammo_low = {
+        icon = SWE_set_army_budget
+        
+        priority = 7
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_army_priority = 1 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_army_priority = 1 }
+        }
+    }
+    
+    # Navy
+    JAM_dc_set_navy_ammo_high = {
+        icon = SWE_set_navy_budget
+        
+        priority = 6
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_navy_priority = 3 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_navy_priority = 3 }
+        }
+    }
+    
+    JAM_dc_set_navy_ammo_med = {
+        icon = SWE_set_navy_budget
+        
+        priority = 5
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_navy_priority = 2 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_navy_priority = 2 }
+        }
+    }
+    
+    JAM_dc_set_navy_ammo_low = {
+        icon = SWE_set_navy_budget
+        
+        priority = 4
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_navy_priority = 1 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_navy_priority = 1 }
+        }
+    }
+    
+    # Air
+    JAM_dc_set_air_ammo_high = {
+        icon = SWE_set_air_budget
+        
+        priority = 3
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_air_priority = 3 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_air_priority = 3 }
+        }
+    }
+    
+    JAM_dc_set_air_ammo_med = {
+        icon = SWE_set_air_budget
+        
+        priority = 2
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_air_priority = 2 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_air_priority = 2 }
+        }
+    }
+    
+    JAM_dc_set_air_ammo_low = {
+        icon = SWE_set_air_budget
+        
+        priority = 1
+        
+        allowed = {
+            always = yes
+        }
+        
+        visible = {
+            has_country_flag = JAM_show_ammo_decisions
+        }
+        
+        available = {
+            NOT = {
+                check_variable = { JAM_air_priority = 1 }
+            }
+        }
+        
+        complete_effect = {
+            set_variable = { JAM_air_priority = 1 }
+        }
+    }
+    
+}

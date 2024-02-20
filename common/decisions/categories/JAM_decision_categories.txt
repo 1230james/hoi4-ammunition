@@ -1,0 +1,9 @@
+JAM_dccat_ammo_priorities = {
+    icon = NOR_fascist_deploy_prep
+    
+    priority = 2
+    
+    visible = {
+        has_variable = JAM_army_priority
+    }
+}
