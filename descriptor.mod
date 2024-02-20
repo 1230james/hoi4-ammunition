@@ -4,5 +4,6 @@ tags={
     "Gameplay"
     "Military"
 }
+picture="thumbnail.png"
 name="James's Ammunition Mod"
 supported_version="1.13.*"
