@@ -1,4 +1,4 @@
-version="1.0.0"
+version="1.1.0"
 tags={
     "Balance"
     "Gameplay"
@@ -7,3 +7,4 @@ tags={
 picture="thumbnail.png"
 name="James's Ammunition Mod"
 supported_version="1.13.*"
+remote_file_id="3164455095"
