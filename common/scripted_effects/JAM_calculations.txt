@@ -1,8 +1,8 @@
 # Ugly code warning :(
 
 # Constants
-@JAM_busy_mil_ammo = 3 # Base amount of thousands of ammo created daily from military factories assigned to production
-@JAM_idle_mil_ammo = 6 # Thousands of ammo created daily from mils idling/not assigned to a production line
+@JAM_busy_mil_ammo = 2 # Base amount of thousands of ammo created daily from military factories assigned to production
+@JAM_idle_mil_ammo = 4 # Thousands of ammo created daily from mils idling/not assigned to a production line
 
 @JAM_base_ammo_capacity = 250 # Base ammo capacity, in thousands
 @JAM_ammo_cap_per_infra = 125 # Additional ammo capacity per level of infrastructure in controlled states, in thousands
