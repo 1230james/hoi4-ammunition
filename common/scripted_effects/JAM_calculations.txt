@@ -1,14 +1,23 @@
 # Ugly code warning :(
 
 # Constants
-@JAM_busy_mil_ammo = 3 # Base amount of thousands of ammo created daily from military factories assigned to production
-@JAM_idle_mil_ammo = 6 # Thousands of ammo created daily from mils idling/not assigned to a production line
+@JAM_busy_mil_ammo = 2 # Base amount of thousands of ammo created daily from military factories assigned to production
+@JAM_idle_mil_ammo = 4 # Thousands of ammo created daily from mils idling/not assigned to a production line
 
 @JAM_base_ammo_capacity = 250 # Base ammo capacity, in thousands
 @JAM_ammo_cap_per_infra = 125 # Additional ammo capacity per level of infrastructure in controlled states, in thousands
 
+# Difficulty game rule production multipliers
+# Remember to update game rule desc localizations if these are changed
+@JAM_difficulty_very_easy_mult = 1.2
+@JAM_difficulty_easy_mult      = 1.1
+@JAM_difficulty_hard_mult      = 0.9
+@JAM_difficulty_very_hard_mult = 0.8
+
 # All ammo usage quantities are in thousands per day
-@JAM_fallback_ammo = 0.2
+@JAM_army_fallback_ammo = 0.3
+@JAM_navy_fallback_ammo = 0.8
+@JAM_air_fallback_ammo  = 0.5
 
 # Consumption multipliers
 # Use for quick blanket balancing
@@ -24,6 +33,9 @@
 @JAM_inf_ammo_sweps_4_mult  = 0.25 # Support Weapons 4 (ARs)
 @JAM_inf_ammo_at_rfl_1_mult = 0.25 # Anti-Tank Eq 1 (ATRs)
 @JAM_inf_ammo_at_rfl_2_mult = 0.10 # Anti-Tank Eq 2 (Explosive AT)
+
+# Army consumption increases with Superior Firepower doctrine
+@JAM_army_sup_fpwr_mult = 1.25
 
 # Army ammo usage
 @JAM_army_LTK_ammo = 0.3 # Light tank
@@ -669,10 +681,22 @@ JAM_se_calculate_army_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_army_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units   }
+            add_to_temp_variable   = { total_demand     = temp_demand   }
+            subtract_from_temp_variable = { total_units = temp_units    }
+        }
+        
+        # Doctrine multiplier
+        if = {
+            limit = {
+                has_tech = superior_firepower
+                has_game_rule = {
+                    rule   = JAM_gr_army_ammo_sup_fire_mult
+                    option = enable
+                }
+            }
+            multiply_temp_variable = { total_demand = @JAM_army_sup_fpwr_mult }
         }
         
         # Balancing multiplier
@@ -868,10 +892,10 @@ JAM_se_calculate_navy_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_navy_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units   }
+            add_to_temp_variable   = { total_demand     = temp_demand   }
+            subtract_from_temp_variable = { total_units = temp_units    }
         }
         
         # Balancing multiplier
@@ -1107,10 +1131,10 @@ JAM_se_calculate_air_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_air_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units  }
+            add_to_temp_variable   = { total_demand     = temp_demand  }
+            subtract_from_temp_variable = { total_units = temp_units   }
         }
         
         # Balancing multiplier
@@ -1226,6 +1250,48 @@ JAM_se_calculate_ammo_produced = {
     }
     multiply_temp_variable = {
         busy_mils = output_mult
+    }
+    
+    # Difficulty modifiers
+    if = {
+        limit = {
+            has_game_rule = {
+                rule   = JAM_gr_ammo_gain_difficulty_mult
+                option = very_easy
+            }
+        }
+        multiply_temp_variable = { idle_mils = @JAM_difficulty_very_easy_mult }
+        multiply_temp_variable = { busy_mils = @JAM_difficulty_very_easy_mult }
+    }
+    else_if = {
+        limit = {
+            has_game_rule = {
+                rule   = JAM_gr_ammo_gain_difficulty_mult
+                option = easy
+            }
+        }
+        multiply_temp_variable = { idle_mils = @JAM_difficulty_easy_mult }
+        multiply_temp_variable = { busy_mils = @JAM_difficulty_easy_mult }
+    }
+    else_if = {
+        limit = {
+            has_game_rule = {
+                rule   = JAM_gr_ammo_gain_difficulty_mult
+                option = hard
+            }
+        }
+        multiply_temp_variable = { idle_mils = @JAM_difficulty_hard_mult }
+        multiply_temp_variable = { busy_mils = @JAM_difficulty_hard_mult }
+    }
+    else_if = {
+        limit = {
+            has_game_rule = {
+                rule   = JAM_gr_ammo_gain_difficulty_mult
+                option = very_hard
+            }
+        }
+        multiply_temp_variable = { idle_mils = @JAM_difficulty_very_hard_mult }
+        multiply_temp_variable = { busy_mils = @JAM_difficulty_very_hard_mult }
     }
     
     # Final output

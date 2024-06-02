@@ -577,4 +577,6 @@ JAM_se_civil_war_ammo_split = {
 # Debug
 JAM_se_debug = {
     clr_country_flag = JAM_diplo_cooldown
+    clr_country_flag = JAM_diplo_AI_debounce
+    clr_country_flag = JAM_diplo_rejections
 }

@@ -6,8 +6,8 @@ scripted_diplomatic_actions = {
         
         # ROOT - initiator
         # THIS - target country
-		allowed = { # I have no idea what that actually means or what this does after poking around
-            always = yes # vanilla file says "if action is valid" 
+		allowed = { # Disables send button and hides AI acceptance icon if false
+            always = yes
 		}
         
 		visible = {
@@ -15,7 +15,14 @@ scripted_diplomatic_actions = {
 		}
         
 		selectable = { #if action is selectable on gui
-            threat > ROOT.modifier@lend_lease_tension
+            if = {
+                limit = {
+                    NOT = {
+                        is_ally_with = ROOT
+                    }
+                }
+                threat > ROOT.modifier@lend_lease_tension
+            }
             THIS = {
                 has_war = yes
                 NOT = { # Apparently lend lease only checks if they're directly at war? lmao wtf
@@ -33,6 +40,28 @@ scripted_diplomatic_actions = {
                 }
             }
 		}
+        
+        can_be_accepted = {
+            always = yes
+        }
+        
+        can_be_sent = {  # send button will be disabled if no
+			always = yes # or so the comment claims because I can't get it to influence anything
+		}
+        
+        # where_can_i_put_this? = {
+            # allowed     -> Confirmation window vanishes if the recipient tries to interact
+            # visible     -> Recipient can view confirmation window but neither the reject nor complete effects execute
+            # selectable  -> Recipient can view confirmation, effects don't run
+            # can_be_sent -> Effects work but doesn't seem to have any impact on blocking sender (bugged in 1.13+?)
+            # can_be_accepted -> Non-starter
+            #
+            # ROOT = {
+                # NOT = {
+                    # has_country_flag = JAM_diplo_cooldown
+                # }
+            # }
+        # }
 
 		requires_acceptance = yes # if true the action will require acceptance of target country
 
@@ -48,6 +77,18 @@ scripted_diplomatic_actions = {
                 subtract_from_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
                 JAM_se_country_refresh = yes
             }
+            
+            if = {
+                limit = {
+                    is_ai = no
+                    ROOT  = {
+                        is_ai = yes
+                    }
+                }
+                ROOT = {
+                    set_country_flag = JAM_diplo_AI_debounce
+                }
+            }
         }
         
         # runs when the action is properly sent and rejected
@@ -55,11 +96,50 @@ scripted_diplomatic_actions = {
             ROOT = {
                 add_to_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
                 JAM_se_country_refresh = yes
+                
+                if = {
+                    limit = {
+                        has_country_flag = JAM_diplo_AI_debounce
+                    }
+                    clr_country_flag = JAM_diplo_AI_debounce
+                }
+            }
+            THIS = {
+                if = {
+                    limit = {
+                        is_ai = no
+                    }
+                    if = {
+                        limit = {
+                            has_country_flag = JAM_diplo_rejections
+                        }
+                        modify_country_flag = {
+                            flag  = JAM_diplo_rejections
+                            value = 1
+                            days  = 90
+                        }
+                    }
+                    else = {
+                        set_country_flag = {
+                            flag  = JAM_diplo_rejections
+                            days  = 90
+                            value = 1
+                        }
+                    }
+                }
             }
 		}
         
 		# runs when the action is properly sent and accepted
 		complete_effect = {
+            ROOT = {
+                if = {
+                    limit = {
+                        has_country_flag = JAM_diplo_AI_debounce
+                    }
+                    clr_country_flag = JAM_diplo_AI_debounce
+                }
+            }
             THIS = {
                 add_to_variable = { JAM_ammo_stockpile = @JAM_ammo_send_qty }
                 JAM_se_country_refresh = yes
@@ -78,10 +158,6 @@ scripted_diplomatic_actions = {
                     modifier = JAM_om_sent_ammo
                 }
             }
-		}
-
-		can_be_sent = { # send button will be disabled if no
-			always = yes
 		}
         
 		send_description = JAM_sda_send_ammo_send_desc # if there is no scripted gui, this desc will be used in send yes/no pop up
@@ -126,6 +202,31 @@ scripted_diplomatic_actions = {
 		# ai_will_do to decide if AI should send this action or not
 		ai_desire = {
 			base = -1
+            
+            # Don't bother players if they rejected multiple requests recently unless if they're in the crisis zone
+            modifier = {
+                add = -20000
+                
+                is_ai = no
+                has_country_flag = {
+                    flag  = JAM_diplo_rejections
+                    value > 4
+                }
+                OR = {
+                    check_variable = { JAM_ammo_is_accumulating  = 1 }
+                    check_variable = { JAM_ammo_months_remaining > 1 }
+                }
+            }
+            
+            # Only send one at a time to players
+            modifier = {
+                add = -20000
+                
+                is_ai = no
+                ROOT = {
+                    has_country_flag = JAM_diplo_AI_debounce
+                }
+            }
             
             # Enemies
 			modifier = {

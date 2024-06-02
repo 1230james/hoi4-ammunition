@@ -18,3 +18,66 @@ JAM_gr_inf_ammo_tech_mult = {
         allow_achievements = yes
     }
 }
+
+JAM_gr_army_ammo_sup_fire_mult = {
+    name  = "JAM_army_ammo_sup_fire_mult"
+    group = "RULE_GROUP_GAMEPLAY"
+    icon  = "GFX_JAM_ammo_small"
+    
+    option = {
+        name = enable
+        text = "JAM_gr_yes_army_ammo_sup_fire_mult_name"
+        desc = "JAM_gr_yes_army_ammo_sup_fire_mult_desc"
+        
+        allow_achievements = yes
+    }
+    option = {
+        name = disable
+        text = "JAM_gr_no_army_ammo_sup_fire_mult_name"
+        desc = "JAM_gr_no_army_ammo_sup_fire_mult_desc"
+        
+        allow_achievements = yes
+    }
+}
+
+JAM_gr_ammo_gain_difficulty_mult = {
+    name  = "JAM_ammo_gain_difficulty_mult"
+    group = "RULE_GROUP_GAMEPLAY"
+    icon  = "GFX_JAM_ammo_small"
+    
+    option = {
+        name = very_easy
+        text = "JAM_gr_ammo_gain_difficulty_mult_very_easy_name"
+        # desc = "JAM_gr_ammo_gain_difficulty_mult_very_easy_desc"
+        
+        allow_achievements = yes
+    }
+    option = {
+        name = easy
+        text = "JAM_gr_ammo_gain_difficulty_mult_easy_name"
+        # desc = "JAM_gr_ammo_gain_difficulty_mult_easy_desc"
+        
+        allow_achievements = yes
+    }
+    default = {
+        name = normal
+        text = "JAM_gr_ammo_gain_difficulty_mult_normal_name"
+        # desc = "JAM_gr_ammo_gain_difficulty_mult_normal_desc"
+        
+        allow_achievements = yes
+    }
+    option = {
+        name = hard
+        text = "JAM_gr_ammo_gain_difficulty_mult_hard_name"
+        # desc = "JAM_gr_ammo_gain_difficulty_mult_hard_desc"
+        
+        allow_achievements = yes
+    }
+    option = {
+        name = very_hard
+        text = "JAM_gr_ammo_gain_difficulty_mult_very_hard_name"
+        # desc = "JAM_gr_ammo_gain_difficulty_mult_very_hard_desc"
+        
+        allow_achievements = yes
+    }
+}
