@@ -15,7 +15,9 @@
 @JAM_difficulty_very_hard_mult = 0.8
 
 # All ammo usage quantities are in thousands per day
-@JAM_fallback_ammo = 0.2
+@JAM_army_fallback_ammo = 0.3
+@JAM_navy_fallback_ammo = 0.8
+@JAM_air_fallback_ammo  = 0.5
 
 # Consumption multipliers
 # Use for quick blanket balancing
@@ -679,10 +681,10 @@ JAM_se_calculate_army_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_army_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units   }
+            add_to_temp_variable   = { total_demand     = temp_demand   }
+            subtract_from_temp_variable = { total_units = temp_units    }
         }
         
         # Doctrine multiplier
@@ -890,10 +892,10 @@ JAM_se_calculate_navy_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_navy_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units   }
+            add_to_temp_variable   = { total_demand     = temp_demand   }
+            subtract_from_temp_variable = { total_units = temp_units    }
         }
         
         # Balancing multiplier
@@ -1129,10 +1131,10 @@ JAM_se_calculate_air_ammo_demand = {
             limit = {
                 check_variable = { total_units > 0 }
             }
-            set_temp_variable = { temp_demand = @JAM_fallback_ammo    }
-            multiply_temp_variable = { temp_demand      = total_units }
-            add_to_temp_variable   = { total_demand     = temp_demand }
-            subtract_from_temp_variable = { total_units = temp_units  }
+            set_temp_variable = { temp_demand = @JAM_air_fallback_ammo }
+            multiply_temp_variable = { temp_demand      = total_units  }
+            add_to_temp_variable   = { total_demand     = temp_demand  }
+            subtract_from_temp_variable = { total_units = temp_units   }
         }
         
         # Balancing multiplier
