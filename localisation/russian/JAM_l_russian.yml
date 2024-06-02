@@ -10,12 +10,34 @@
     JAM_om_sent_ammo: "Received Ammunition"
     
     # Game Rules
-    JAM_inf_ammo_tech_mult: "§YJAM§! | Tech Raises Infantry Ammo Needs"
+    JAM_inf_ammo_tech_mult:        "§YJAM§! | Tech Raises Infantry Ammo Needs"
+    JAM_army_ammo_sup_fire_mult:   "§YJAM§! | Ammo Needs from Army Doctrine"
+    JAM_ammo_gain_difficulty_mult: "§YJAM§! | Ammo Production Difficulty"
     
     JAM_gr_yes_inf_ammo_tech_mult_name: "Enabled"
     JAM_gr_yes_inf_ammo_tech_mult_desc: "The base ammunition consumption of §YInfantry§!, §YCavalry§!, §YMotorized§!, and §YMechanized§! battalions will §Oincrease§! when unlocking certain $CAREER_PROFILE_MILITARY_PRODUCTION_OTHER_LABEL$ technologies."
     JAM_gr_no_inf_ammo_tech_mult_name:  "Disabled"
     JAM_gr_no_inf_ammo_tech_mult_desc:  "The base ammunition consumption of §YInfantry§!, §YCavalry§!, §YMotorized§!, and §YMechanized§! battalions will §Oremain constant§! throughout the game."
+    
+    JAM_gr_yes_army_ammo_sup_fire_mult_name: "$JAM_gr_yes_inf_ammo_tech_mult_name$"
+    JAM_gr_yes_army_ammo_sup_fire_mult_desc: "The base ammunition consumption of §7Army§! battalions will be §Oincreased§! for any countries using the §O$superior_firepower$§! Army Doctrine."
+    
+    JAM_gr_no_army_ammo_sup_fire_mult_name: "$JAM_gr_no_inf_ammo_tech_mult_name$"
+    JAM_gr_no_army_ammo_sup_fire_mult_desc: "The base ammunition consumption of §7Army§! battalions will be §Oequal§! for all countries regardless of their Army Doctrine."
+    
+    JAM_gr_ammo_gain_difficulty_mult_very_easy_name: "$FE_DIFFICULTY_VERY_EASY$"
+    JAM_gr_ammo_gain_difficulty_mult_easy_name:      "$FE_DIFFICULTY_EASY$"
+    JAM_gr_ammo_gain_difficulty_mult_normal_name:    "$FE_DIFFICULTY_NORMAL$"
+    JAM_gr_ammo_gain_difficulty_mult_hard_name:      "$FE_DIFFICULTY_HARD$"
+    JAM_gr_ammo_gain_difficulty_mult_very_hard_name: "$FE_DIFFICULTY_VERY_HARD$"
+    
+    JAM_txt_ammo_gain_difficulty_common: "§YAll Countries§!:\n   "
+    
+    JAM_gr_ammo_gain_difficulty_mult_very_easy_desc: "$JAM_txt_ammo_gain_difficulty_common$§G+20%§! Ammo Production"
+    JAM_gr_ammo_gain_difficulty_mult_easy_desc:      "$JAM_txt_ammo_gain_difficulty_common$§G+10%§! Ammo Production"
+    JAM_gr_ammo_gain_difficulty_mult_normal_desc:    "Ammunition Production remains unchanged."
+    JAM_gr_ammo_gain_difficulty_mult_hard_desc:      "$JAM_txt_ammo_gain_difficulty_common$§R-10%§! Ammo Production"
+    JAM_gr_ammo_gain_difficulty_mult_very_hard_desc: "$JAM_txt_ammo_gain_difficulty_common$§R-20%§! Ammo Production"
     
     # Topbar
     JAM_txt_ammo_status: "[JAM_sl_ammo_status]"
@@ -136,7 +158,7 @@
     JAM_tt_ammo_stats_raw: "$JAM_tt_header$\n\n$JAM_tt_current_ammo$\n$JAM_tt_gain_breakdown$\n$JAM_tt_capacity$\n\n$JAM_tt_demand_now$\n$JAM_tt_demand_max$\n\n$JAM_tt_army_header$\n$JAM_tt_army_demand_now$\n$JAM_tt_army_demand_bkdn$\n$JAM_tt_army_demand_max$[JAM_sl_army_penalty_text]\n\n$JAM_tt_air_header$\n$JAM_tt_air_demand_now$\n$JAM_tt_air_demand_max$[JAM_sl_air_penalty_text]\n\n$JAM_tt_navy_header$\n$JAM_tt_navy_demand_now$\n$JAM_tt_navy_demand_max$[JAM_sl_navy_penalty_text]\n\n$JAM_tt_stockpile_cap$\n$JAM_tt_stockpile_base$\n$JAM_tt_stockpile_infr$\n\n[JAM_sl_time_remaining_body]"
     
     JAM_tt_ammo_desc:     "[JAM_sl_tt_desc_bypass]"
-    JAM_tt_ammo_desc_raw: "§YAmmunition§! is produced by your country's $arms_factory_plural$. All $arms_factory_plural$ contribute to the production of §YAmmunition§!, but ones that are not assigned to a production line will produce extra.\n\nEach country has a maximum capacity for §YAmmunition§! which can be increased by upgrading §Y$infrastructure$§! in the states it owns or controls.\n\n§YAmmunition§! is used by the army when in combat. Attacking will consume extra §YAmmunition§!. Army units without a $rank3$ will passively lose §YAmmunition§!.\n\nDuring times of war, §YAmmunition§! is also consumed by deployed air wings and naval units that are not docked.\n\n$JAM_txt_JAM_feature$"
+    JAM_tt_ammo_desc_raw: "§YAmmunition§! is produced by your country's $arms_factory_plural$. All §Yundamaged§! $arms_factory_plural$ contribute to the production of §YAmmunition§!, but ones that are not assigned to a production line will produce extra. The amount of §YAmmunition§! produced per factory can be increased by increasing §Y$MODIFIER_INDUSTRIAL_CAPACITY_FACTOR$§! in your country, typically through §Y$industry$ research§!.\n\nEach country has a maximum capacity for §YAmmunition§! which can be increased by upgrading §Y$infrastructure$§! in the states it owns or controls.\n\n§YAmmunition§! is used by the army when in combat. Attacking will consume extra §YAmmunition§!. Army units without a $rank3$ will passively lose §YAmmunition§!.\n\nDuring times of war, §YAmmunition§! is also consumed by deployed air wings and naval units that are not docked.\n\n$JAM_txt_JAM_feature$"
     
     # Numbers
     # I miss Vic3 loc functions :(
