@@ -17,7 +17,7 @@
 # All ammo usage quantities are in thousands per day
 @JAM_army_fallback_ammo = 0.3
 @JAM_navy_fallback_ammo = 0.8
-@JAM_air_fallback_ammo  = 0.5
+@JAM_air_fallback_ammo  = 0.2
 
 # Consumption multipliers
 # Use for quick blanket balancing
@@ -137,25 +137,25 @@
 @JAM_navy_SS_ammo = 0.4 # Submarine
 
 # Air ammo usage
-@JAM_air_FTR_ammo = 0.4 # Fighter
-@JAM_air_CVF_ammo = 0.4 # CV Fighter
-@JAM_air_CAS_ammo = 0.4 # CAS
-@JAM_air_CVC_ammo = 0.4 # CV CAS
-@JAM_air_NAV_ammo = 0.5 # Naval bomber
-@JAM_air_CVN_ammo = 0.5 # CV Naval bomber
-@JAM_air_KMK_ammo = 0.4 # Suicide craft (Kamikaze)
-@JAM_air_CKM_ammo = 0.4 # CV suicide craft
+@JAM_air_FTR_ammo = 0.2 # Fighter
+@JAM_air_CVF_ammo = 0.2 # CV Fighter
+@JAM_air_CAS_ammo = 0.2 # CAS
+@JAM_air_CVC_ammo = 0.2 # CV CAS
+@JAM_air_NAV_ammo = 0.3 # Naval bomber
+@JAM_air_CVN_ammo = 0.3 # CV Naval bomber
+@JAM_air_KMK_ammo = 0.2 # Suicide craft (Kamikaze)
+@JAM_air_CKM_ammo = 0.2 # CV suicide craft
 
-@JAM_air_TAB_ammo = 0.5 # Tac bomber
-@JAM_air_HFT_ammo = 0.5 # Heavy fighter
-@JAM_air_SCP_ammo = 0.4 # Scout plane
+@JAM_air_TAB_ammo = 0.3 # Tac bomber
+@JAM_air_HFT_ammo = 0.3 # Heavy fighter
+@JAM_air_SCP_ammo = 0.1 # Scout plane
 
-@JAM_air_STB_ammo = 0.8 # Strat bomber
-@JAM_air_MPP_ammo = 0.4 # Maritime patrol plane
+@JAM_air_STB_ammo = 0.4 # Strat bomber
+@JAM_air_MPP_ammo = 0.2 # Maritime patrol plane
 
-@JAM_air_JFT_ammo = 0.4 # Jet fighter
-@JAM_air_JTB_ammo = 0.5 # Jet tac bomber
-@JAM_air_JSB_ammo = 0.8 # Jet strat bomber
+@JAM_air_JFT_ammo = 0.3 # Jet fighter
+@JAM_air_JTB_ammo = 0.4 # Jet tac bomber
+@JAM_air_JSB_ammo = 0.5 # Jet strat bomber
 
 @JAM_air_RIT_ammo = 0 # Rocket interceptor
 @JAM_air_TRP_ammo = 0 # Transport
