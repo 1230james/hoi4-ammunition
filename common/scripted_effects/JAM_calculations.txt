@@ -145,6 +145,7 @@
 @JAM_air_CVN_ammo = 0.3 # CV Naval bomber
 @JAM_air_KMK_ammo = 0.2 # Suicide craft (Kamikaze)
 @JAM_air_CKM_ammo = 0.2 # CV suicide craft
+@JAM_air_MSH_ammo = 1.0 # Mothership
 
 @JAM_air_TAB_ammo = 0.3 # Tac bomber
 @JAM_air_HFT_ammo = 0.3 # Heavy fighter
@@ -152,6 +153,7 @@
 
 @JAM_air_STB_ammo = 0.4 # Strat bomber
 @JAM_air_MPP_ammo = 0.2 # Maritime patrol plane
+@JAM_air_ITC_ammo = 0.5 # Intercontinental strat bomber
 
 @JAM_air_JFT_ammo = 0.3 # Jet fighter
 @JAM_air_JTB_ammo = 0.4 # Jet tac bomber
@@ -160,6 +162,10 @@
 @JAM_air_RIT_ammo = 0 # Rocket interceptor
 @JAM_air_TRP_ammo = 0 # Transport
 @JAM_air_GDM_ammo = 0 # Guided missile
+@JAM_air_EXA_ammo = 0 # Explosive ammo? (For multi charge large caliber guns?)
+@JAM_air_BM_ammo  = 0 # Ballistic missile
+@JAM_air_NM_ammo  = 0 # Nuclear missile
+@JAM_air_SAM_ammo = 0 # SAM missile
 
 # Determine total current ammo demand of the army
 # Outputs the following values to the listed variables:
@@ -1056,6 +1062,12 @@ JAM_se_calculate_air_ammo_demand = {
         add_to_temp_variable   = { total_demand     = temp_demand }
         subtract_from_temp_variable = { total_units = temp_units  }
         
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@mothership }
+        set_temp_variable = { temp_demand = @JAM_air_MSH_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
         # Medium props
         set_temp_variable = { temp_units  = num_deployed_planes_with_type@tac_bomber }
         set_temp_variable = { temp_demand = @JAM_air_TAB_ammo     }
@@ -1084,6 +1096,12 @@ JAM_se_calculate_air_ammo_demand = {
         
         set_temp_variable = { temp_units  = num_deployed_planes_with_type@maritime_patrol_plane }
         set_temp_variable = { temp_demand = @JAM_air_MPP_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@strat_bomber_intercontinental }
+        set_temp_variable = { temp_demand = @JAM_air_ITC_ammo     }
         multiply_temp_variable = { temp_demand      = temp_units  }
         add_to_temp_variable   = { total_demand     = temp_demand }
         subtract_from_temp_variable = { total_units = temp_units  }
@@ -1122,6 +1140,30 @@ JAM_se_calculate_air_ammo_demand = {
         
         set_temp_variable = { temp_units  = num_deployed_planes_with_type@guided_missile }
         set_temp_variable = { temp_demand = @JAM_air_GDM_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@explosive_ammo }
+        set_temp_variable = { temp_demand = @JAM_air_EXA_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@ballistic_missile }
+        set_temp_variable = { temp_demand = @JAM_air_BM_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@nuclear_missile }
+        set_temp_variable = { temp_demand = @JAM_air_NM_ammo     }
+        multiply_temp_variable = { temp_demand      = temp_units  }
+        add_to_temp_variable   = { total_demand     = temp_demand }
+        subtract_from_temp_variable = { total_units = temp_units  }
+        
+        set_temp_variable = { temp_units  = num_deployed_planes_with_type@sam_missile }
+        set_temp_variable = { temp_demand = @JAM_air_SAM_ammo     }
         multiply_temp_variable = { temp_demand      = temp_units  }
         add_to_temp_variable   = { total_demand     = temp_demand }
         subtract_from_temp_variable = { total_units = temp_units  }
