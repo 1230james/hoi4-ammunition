@@ -1,5 +1,22 @@
 spriteTypes = {
 
+    # Dyn modifier sprites
+    spriteType = {
+        name = "GFX_JAM_ammo_shortage_army"
+        texturefile = "gfx/interface/JAM_idea_shortage_army.dds"
+    }
+    
+    spriteType = {
+        name = "GFX_JAM_ammo_shortage_navy"
+        texturefile = "gfx/interface/JAM_idea_shortage_navy.dds"
+    }
+    
+    spriteType = {
+        name = "GFX_JAM_ammo_shortage_air"
+        texturefile = "gfx/interface/JAM_idea_shortage_air.dds"
+    }
+    
+    # Ammo topbar section
     spriteType = {
         name = "GFX_JAM_ammunition"
         texturefile = "gfx/interface/ammo_medium.dds"
