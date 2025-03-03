@@ -1,5 +1,5 @@
 JAM_dyn_mod_army_ammo_shortage = {
-    # iconless to keep hidden
+    icon = GFX_JAM_ammo_shortage_army
     
     enable = {
         always = yes
@@ -11,7 +11,7 @@ JAM_dyn_mod_army_ammo_shortage = {
 }
 
 JAM_dyn_mod_navy_ammo_shortage = {
-    # iconless to keep hidden
+    icon = GFX_JAM_ammo_shortage_navy
     
     enable = {
         always = yes
@@ -27,7 +27,7 @@ JAM_dyn_mod_navy_ammo_shortage = {
 }
 
 JAM_dyn_mod_air_ammo_shortage = {
-    # iconless to keep hidden
+    icon = GFX_JAM_ammo_shortage_air
     
     enable = {
         always = yes

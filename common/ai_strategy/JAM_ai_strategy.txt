@@ -15,3 +15,34 @@ JAM_build_more_mils = {
         value = 10000
     }
 }
+
+# Cool it with the planes
+JAM_use_fewer_planes = {
+    enable = {
+        has_variable = JAM_ammo_net_change
+        has_variable = JAM_ammo_months_remaining
+        has_variable = JAM_army_ammo_demand_now
+        has_variable = JAM_navy_ammo_demand_now
+        has_variable = JAM_air_ammo_demand_max
+        
+        check_variable = { JAM_ammo_net_change < 0 }
+        check_variable = { JAM_ammo_months_remaining < 6 }
+        
+        check_variable = { JAM_air_ammo_demand_max > var:JAM_army_ammo_demand_now }
+        check_variable = { JAM_air_ammo_demand_max > var:JAM_navy_ammo_demand_now }
+    }
+    
+    abort = {
+        check_variable = { JAM_ammo_net_change > 0 }
+        check_variable = { JAM_ammo_years_remaining > 1 }
+    }
+    
+    ai_strategy = {
+        type  = air_factory_balance
+        value = -100
+    }
+    ai_strategy = {
+        type  = build_airplane
+        value = -100
+    }
+}
