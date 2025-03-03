@@ -251,7 +251,7 @@ scripted_diplomatic_actions = {
             # No ammo to give
             # AI will try to keep:
             #     - 1 day's worth of ammo on hand at all times
-            #     - At least 1 years' ammo on hand if they have a net loss of ammo at the moment
+            #     - At least 5 years' ammo on hand if they have a net loss of ammo at the moment
             # AI will also avoid donating ammo if it will take at least 1 year to fill their reserves (they only want to
             # donate ammo they can safely give away)
             modifier = {
@@ -262,7 +262,7 @@ scripted_diplomatic_actions = {
                         check_variable = { JAM_ammo_stockpile < JAM_total_ammo_demand_max }
                         AND = {
                             check_variable = { JAM_ammo_is_accumulating = 0 }
-                            check_variable = { JAM_ammo_years_remaining < 1 }
+                            check_variable = { JAM_ammo_years_remaining < 5 }
                         }
                         AND = {
                             check_variable = { JAM_ammo_is_accumulating = 1 }
