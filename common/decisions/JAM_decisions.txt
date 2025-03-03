@@ -23,6 +23,10 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_country_flag = JAM_show_ammo_decisions
         }
+        
+        ai_will_do = {
+            base = 10
+        }
     }
     
     JAM_dc_hide_ammo_decisions = {
@@ -44,6 +48,10 @@ JAM_dccat_ammo_priorities = {
         
         complete_effect = {
             clr_country_flag = JAM_show_ammo_decisions
+        }
+        
+        ai_will_do = {
+            base = 0
         }
     }
     
@@ -70,6 +78,24 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_army_priority = 3 }
         }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                OR = {
+                    has_tech = superior_firepower
+                    has_tech = mass_assault
+                }
+            }
+            modifier = { # Crisis mode
+                add = 100
+                OR = {
+                    check_variable = { JAM_ammo_is_accumulating = 0 }
+                    check_variable = { JAM_ammo_years_remaining < 1 }
+                }
+            }
+        }
     }
     
     JAM_dc_set_army_ammo_med = {
@@ -94,6 +120,24 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_army_priority = 2 }
         }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                NOT = {
+                    has_tech = superior_firepower
+                    has_tech = mass_assault
+                }
+            }
+            modifier = { # Crisis mode
+                add = -100
+                OR = {
+                    check_variable = { JAM_ammo_is_accumulating = 0 }
+                    check_variable = { JAM_ammo_years_remaining < 1 }
+                }
+            }
+        }
     }
     
     JAM_dc_set_army_ammo_low = {
@@ -117,6 +161,10 @@ JAM_dccat_ammo_priorities = {
         
         complete_effect = {
             set_variable = { JAM_army_priority = 1 }
+        }
+        
+        ai_will_do = {
+            base = 0
         }
     }
     
@@ -143,6 +191,17 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_navy_priority = 3 }
         }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                has_tech = fleet_in_being
+                has_navy_size = {
+                    size > 20
+                }
+            }
+        }
     }
     
     JAM_dc_set_navy_ammo_med = {
@@ -167,6 +226,19 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_navy_priority = 2 }
         }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                NOT = {
+                    has_tech = fleet_in_being
+                }
+                has_navy_size = {
+                    size > 10
+                }
+            }
+        }
     }
     
     JAM_dc_set_navy_ammo_low = {
@@ -190,6 +262,16 @@ JAM_dccat_ammo_priorities = {
         
         complete_effect = {
             set_variable = { JAM_navy_priority = 1 }
+        }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                has_navy_size = {
+                    size < 10
+                }
+            }
         }
     }
     
@@ -216,6 +298,10 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_air_priority = 3 }
         }
+        
+        ai_will_do = {
+            base = 0
+        }
     }
     
     JAM_dc_set_air_ammo_med = {
@@ -240,6 +326,19 @@ JAM_dccat_ammo_priorities = {
         complete_effect = {
             set_variable = { JAM_air_priority = 2 }
         }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                has_deployed_air_force_size = {
+                    size > 100
+                }
+                has_deployed_air_force_size = {
+                    size < 20000
+                }
+            }
+        }
     }
     
     JAM_dc_set_air_ammo_low = {
@@ -263,6 +362,21 @@ JAM_dccat_ammo_priorities = {
         
         complete_effect = {
             set_variable = { JAM_air_priority = 1 }
+        }
+        
+        ai_will_do = {
+            base = 0
+            modifier = {
+                add = 10
+                OR = {
+                    has_deployed_air_force_size = {
+                        size < 100
+                    }
+                    has_deployed_air_force_size = {
+                        size > 20000 # AI air force sizes (and thus ammo usage) tend to run away so stop them from nerfing their own armies
+                    }
+                }
+            }
         }
     }
     
