@@ -1385,43 +1385,90 @@ JAM_se_calculate_ammo_produced = {
     # Difficulty modifiers
     if = {
         limit = {
-            has_game_rule = {
-                rule   = JAM_gr_ammo_gain_difficulty_mult
-                option = very_easy
-            }
+            is_ai = yes
         }
-        multiply_temp_variable = { idle_mils = @JAM_difficulty_very_easy_mult }
-        multiply_temp_variable = { busy_mils = @JAM_difficulty_very_easy_mult }
+        if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_ai_ammo_gain_difficulty_mult
+                    option = very_easy
+                }
+            }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_very_easy_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_very_easy_mult }
+        }
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_ai_ammo_gain_difficulty_mult
+                    option = easy
+                }
+            }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_easy_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_easy_mult }
+        }
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_ai_ammo_gain_difficulty_mult
+                    option = hard
+                }
+            }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_hard_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_hard_mult }
+        }
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_ai_ammo_gain_difficulty_mult
+                    option = very_hard
+                }
+            }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_very_hard_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_very_hard_mult }
+        }
     }
-    else_if = {
-        limit = {
-            has_game_rule = {
-                rule   = JAM_gr_ammo_gain_difficulty_mult
-                option = easy
+    else = {
+        if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_player_ammo_gain_difficulty_mult
+                    option = very_easy
+                }
             }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_very_easy_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_very_easy_mult }
         }
-        multiply_temp_variable = { idle_mils = @JAM_difficulty_easy_mult }
-        multiply_temp_variable = { busy_mils = @JAM_difficulty_easy_mult }
-    }
-    else_if = {
-        limit = {
-            has_game_rule = {
-                rule   = JAM_gr_ammo_gain_difficulty_mult
-                option = hard
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_player_ammo_gain_difficulty_mult
+                    option = easy
+                }
             }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_easy_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_easy_mult }
         }
-        multiply_temp_variable = { idle_mils = @JAM_difficulty_hard_mult }
-        multiply_temp_variable = { busy_mils = @JAM_difficulty_hard_mult }
-    }
-    else_if = {
-        limit = {
-            has_game_rule = {
-                rule   = JAM_gr_ammo_gain_difficulty_mult
-                option = very_hard
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_player_ammo_gain_difficulty_mult
+                    option = hard
+                }
             }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_hard_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_hard_mult }
         }
-        multiply_temp_variable = { idle_mils = @JAM_difficulty_very_hard_mult }
-        multiply_temp_variable = { busy_mils = @JAM_difficulty_very_hard_mult }
+        else_if = {
+            limit = {
+                has_game_rule = {
+                    rule   = JAM_gr_player_ammo_gain_difficulty_mult
+                    option = very_hard
+                }
+            }
+            multiply_temp_variable = { idle_mils = @JAM_difficulty_very_hard_mult }
+            multiply_temp_variable = { busy_mils = @JAM_difficulty_very_hard_mult }
+        }
     }
     
     # Final output
