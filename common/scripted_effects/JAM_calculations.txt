@@ -91,6 +91,7 @@
 
 @JAM_army_CAV_ammo = 0.1 # Cavalry
 @JAM_army_CAM_ammo = 0.1 # Camelry
+@JAM_army_ELE_ammo = 0.1 # Elephantry
 @JAM_army_CAR_ammo = 0.2 # Armored car
 
 @JAM_army_AA_ammo  = 0.3 # Support anti-air
@@ -545,6 +546,13 @@ JAM_se_calculate_army_ammo_demand = {
         
         set_temp_variable = { temp_units  = num_battalions_with_type@camelry }
         set_temp_variable = { temp_demand = @JAM_army_CAM_ammo        }
+        multiply_temp_variable = { temp_demand      = temp_units      }
+        multiply_temp_variable = { temp_demand      = inf_demand_mult }
+        add_to_temp_variable   = { total_demand     = temp_demand     }
+        subtract_from_temp_variable = { total_units = temp_units      }
+        
+        set_temp_variable = { temp_units  = num_battalions_with_type@elephantry }
+        set_temp_variable = { temp_demand = @JAM_army_ELE_ammo        }
         multiply_temp_variable = { temp_demand      = temp_units      }
         multiply_temp_variable = { temp_demand      = inf_demand_mult }
         add_to_temp_variable   = { total_demand     = temp_demand     }
